@@ -56,6 +56,22 @@ GTA-trailer finishing layer on top of the base world:
 - **Extras**: lens-flare ghost train off the sun, puff-cluster clouds,
   two high jets dragging contrails, float spray at deck level.
 
+## Readability pass (2026-08-31)
+Text sits over a live, moving world, so contrast was measured against the
+WORST case: a panel composited over sun glare on water (treat the backdrop
+as white, not as the navy). Under that test the old values failed WCAG AA:
+`--ink-faint` was 2.06:1 and `--ink-dim` 3.70:1. Now 5.45:1 and 8.59:1.
+- `--ink-dim` `#bcbacb` → `#d4d2e0`, `--ink-faint` `#8a88a3` → `#a9a7bd`.
+- Content panels (.card/.stat/.skill-block/.achievement/.about-facts) went to
+  0.86–0.88 alpha, and the work/skills/edu scrim to 0.82, so bright water
+  cannot punch through the frosting. Don't drop these back toward 0.7.
+- Hero and contact radial scrims now reach ~88% instead of fading out at
+  76–78%, so long titles don't run off the edge of the scrim.
+- Mono labels were 0.55rem (~8.8px), too small to read regardless of
+  contrast; they are 0.62rem now.
+- Still no `text-shadow` on the word-masked titles, for the clipping reason
+  in Notes below. Scrims do the work instead.
+
 ## Design system
 - **Type**: Instrument Sans (display) + Instrument Serif italics (accent words)
   + Inter (body) + Geist Mono (labels/flight HUD: ALT / SPD / sector)
