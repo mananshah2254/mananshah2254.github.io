@@ -72,6 +72,23 @@ as white, not as the navy). Under that test the old values failed WCAG AA:
 - Still no `text-shadow` on the word-masked titles, for the clipping reason
   in Notes below. Scrims do the work instead.
 
+## Polish pass (2026-08-31)
+Type scale and color ramp, done after the contrast work above.
+- **Type floor.** 36 declarations were under 16px and a whole label tier sat
+  at 8.0-9.6px, too small to read over a moving world at any contrast. The
+  label tier moved up ~2.7px (floor is now 11.2px) and the body tier to
+  15.2-16.3px. Don't reintroduce sizes below `0.7rem`.
+- **Tracking follows size.** The 0.32-0.42em letter-spacing was calibrated
+  for 8px type; at 11-12px it made words fall apart, so it came down to
+  0.24-0.30em. If you resize a label, move its tracking the opposite way.
+- **One text hue.** `--ink` is warm (42 deg) but the dim tiers were lavender
+  (~247 deg, the opposite side of the wheel), which read as muddy rather
+  than deliberate. The ramp is now warm throughout: `--ink-dim` `#dad5cd`
+  (9.30:1 over glare), `--ink-faint` `#aca69b` (5.62:1). Warm ink + amber
+  accent + dusk navy ground is the intended pairing.
+- `--line` went from `rgba(255,255,255,0.08)` to `rgba(246,243,236,0.14)`;
+  at 0.08 the card edges were invisible and panels read as smudges.
+
 ## Design system
 - **Type**: Instrument Sans (display) + Instrument Serif italics (accent words)
   + Inter (body) + Geist Mono (labels/flight HUD: ALT / SPD / sector)
