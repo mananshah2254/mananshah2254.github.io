@@ -1,501 +1,414 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manan's Portfolio</title>
-    <link rel="icon" type="image/x-icon" href="assets/images/ms.png">
-
-    <!-- Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com/">
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
-
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="assets/css/animate.min.css">
-    <link rel="stylesheet" href="assets/css/smooth-scrollbar.css">
-    <link rel="stylesheet" href="assets/css/lightbox.min.css">
-
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Manan Shah — Software Engineer</title>
+<meta name="description" content="Manan Shah. Software Development Engineer at PayPal building distributed systems and production GenAI. Chicago, IL." />
+<meta property="og:title" content="Manan Shah — Software Engineer" />
+<meta property="og:description" content="Payments-scale microservices, RAG pipelines, agentic AI. A portfolio in depth." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='20' y='20' width='60' height='60' rx='8' fill='none' stroke='%237583ff' stroke-width='6'/></svg>" />
 </head>
-<body class="home5-page">
-    <video class="body-overlay" muted autoplay loop>
-        <source src="assets/images/video5.mp4" type="video/mp4">
-    </video>
+<body>
 
-    <div class="page-loader">
-        <div class="bounceball"></div>
-    </div>
-
-    <span class="icon-menu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-    </span>
-
-    <div class="responsive-sidebar-menu">
-    <div class="overlay"></div>
-    <div class="sidebar-menu-inner">
-        <button class="close-button" onclick="closeMenu()">×</button>
-        <div class="menu-wrap">
-            <p>Menu</p>
-            <ul class="menu scroll-nav-responsive d-flex">
-                <li>
-                    <a class="scroll-to" href="#home">
-                        <i class="las la-home"></i> <span>Home</span>
-                    </a>
-                </li>
-                <li>
-
-                    <a class="scroll-to" href="#about">
-                        <i class="lar la-user"></i> <span>About</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="scroll-to" href="#Education&Experience">
-                        <i class="las la-briefcase"></i> <span>Education&Experience</span>
-                    </a>
-                </li>
-               
-                <li>
-                    <a class="scroll-to" href="#skills">
-                        <i class="las la-shapes"></i> <span>Skills</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="scroll-to" href="#projects">
-                        <i class="las la-grip-vertical"></i> <span>projects</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="scroll-to" href="#contact">
-                        <i class="las la-envelope"></i> <span>contact</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+<!-- ══════════ PRELOADER ══════════ -->
+<div class="preloader" id="preloader">
+  <div class="preloader-inner">
+    <div class="preloader-count mono" id="preloaderCount">00</div>
+    <div class="preloader-bar"><span id="preloaderBar"></span></div>
+    <div class="preloader-label mono">MANAN SHAH — PORTFOLIO 2026</div>
+  </div>
 </div>
 
+<!-- ══════════ ENTER OVERLAY (unlocks audio) ══════════ -->
+<div class="enter-overlay" id="enterOverlay" hidden>
+  <div class="enter-name">Manan Shah</div>
+  <div class="enter-role mono">SOFTWARE DEVELOPMENT ENGINEER · PAYPAL</div>
+  <div class="enter-mission mono">FLIGHT MS-26 · BAY TOUR · 8 CHECKPOINTS · CLEAR SKIES</div>
+  <div class="enter-actions">
+    <button class="btn btn-primary" id="enterBtn" data-magnetic><span>ENTER WITH SOUND</span></button>
+    <button class="enter-silent" id="enterSilent">enter quietly</button>
+  </div>
+</div>
 
-    <ul class="menu scroll-nav d-flex">
-        <li>
-            <a class="scroll-to" href="#home">
-                <span>Home</span> <i class="las la-home"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#about">
-                <span>About</span> <i class="lar la-user"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#Education&Experience">
-                <span>Education & Experience</span> <i class="las la-briefcase"></i>
-            </a>
-        </li>
-       
-        <li>
-            <a class="scroll-to" href="#skills">
-                <span>Skills</span> <i class="las la-shapes"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#projects">
-                <span>projects</span> <i class="las la-grip-vertical"></i>
-            </a>
-        </li>
-        
-        <li>
-            <a class="scroll-to" href="#contact">
-                <span>Contact</span> <i class="las la-envelope"></i>
-            </a>
-        </li>
-    </ul>
+<!-- ══════════ WEBGL CANVAS ══════════ -->
+<canvas id="scene"></canvas>
+<div class="grain"></div>
+<div class="vignette"></div>
 
-    <div class="left-sidebar">
-        
-       
-            <h2 class="designation">Manan Shah</h2>
-      
-        <img class="me" src="assets/images/Manan.jpg" alt="Me">
-        <h2 class="email">mshah130@hawk.iit.edu</h2>
-        <h2 class="address">Chicago, USA</h2>
-       
-        <ul class="social-profile d-flex align-items-center flex-wrap justify-content-center">
-            
-            <li>
-                <a href="https://www.linkedin.com/in/mananshah2254/"><i class="lab la-linkedin"></i></a>
-               
-            </li>
-            <li>
-                <a href="https://github.com/mananshah2254"><i class="lab la-github"></i></a>
-               
-            </li>
-            
-        </ul>
-       
+<!-- ══════════ CUSTOM CURSOR ══════════ -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- ══════════ HUD ══════════ -->
+<div class="toast mono" id="toast"><span class="toast-check">◈</span><span id="toastText"></span></div>
+
+<div class="hud">
+  <div class="hud-item hud-tl mono" id="hudTravel">ALT 0000 FT</div>
+  <div class="hud-item hud-tr mono" id="hudSpd">SPD 000 KT</div>
+  <div class="hud-item hud-bl mono" id="hudSection">01 — TAKEOFF</div>
+  <div class="hud-item hud-br mono" id="hudDepth">0000</div>
+</div>
+
+<!-- ══════════ NAV ══════════ -->
+<header class="nav">
+  <a class="nav-logo" href="#hero" data-magnetic>Manan Shah</a>
+  <nav class="nav-links">
+    <a href="#work" data-scramble data-magnetic>WORK</a>
+    <a href="#projects" data-scramble data-magnetic>PROJECTS</a>
+    <a href="#about" data-scramble data-magnetic>ABOUT</a>
+    <a href="#contact" data-scramble data-magnetic>CONTACT</a>
+  </nav>
+  <button class="audio-toggle" id="audioToggle" data-magnetic aria-label="Toggle sound">
+    <span class="audio-bars"><i></i><i></i><i></i><i></i></span>
+    <span class="audio-label mono" id="audioLabel">SOUND OFF</span>
+  </button>
+</header>
+
+<main id="main">
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero section" id="hero" data-sector="01 — TAKEOFF">
+    <div class="hero-kicker mono reveal-line">MANAN SHAH · SDE @ PAYPAL · CHICAGO</div>
+    <h1 class="hero-title" data-split-words>
+      Building <em>agentic AI systems</em> that survive contact with production.
+    </h1>
+    <p class="hero-sub reveal-line">
+      Four years of distributed systems and GenAI. Payment rails and
+      fraud-hunting RAG pipelines at PayPal by day, products that are
+      live on the internet by night.
+    </p>
+    <div class="hero-cta reveal-line">
+      <a class="btn btn-primary" href="#work" data-magnetic><span>VIEW WORK</span></a>
+      <a class="btn btn-ghost" href="#contact" data-magnetic><span>GET IN TOUCH</span></a>
+    </div>
+    <div class="scroll-hint mono">
+      <span class="scroll-hint-line"></span>
+      SCROLL — YOU HAVE THE CONTROLS
+    </div>
+  </section>
+
+  <!-- ══════════ ABOUT ══════════ -->
+  <section class="about section" id="about" data-sector="02 — ABOUT">
+    <div class="about-grid">
+      <figure class="about-photo" data-tilt>
+        <img src="assets/manan.jpg" alt="Manan Shah on the Brooklyn Bridge, Manhattan skyline behind" loading="lazy" />
+        <figcaption class="mono">BROOKLYN BRIDGE, NYC</figcaption>
+      </figure>
+      <div class="about-body">
+        <h2 class="section-title" data-split>About</h2>
+        <p class="about-text" data-words>
+          I spent the last four years teaching machines to move money and reason
+          about it. Payment microservices and fraud-hunting RAG pipelines at
+          PayPal, enterprise insurance platforms at Duck Creek, and products I
+          designed, built and shipped alone, live on the internet today.
+          I prototype like it is a sport, then harden the result until it holds
+          in production. Ambiguous problem in, working system out.
+        </p>
+        <div class="about-facts">
+          <div class="fact"><span class="mono fact-k">CURRENTLY</span><span>SDE at PayPal · payments &amp; GenAI</span></div>
+          <div class="fact"><span class="mono fact-k">EDUCATION</span><span>MS Computer Science, Illinois Tech ’25</span></div>
+          <div class="fact"><span class="mono fact-k">BASE</span><span>Chicago, IL · open to relocate</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ STATS ══════════ -->
+  <section class="stats section" id="stats" data-sector="03 — TELEMETRY">
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-num"><span data-count="4">0</span><sup>+</sup></div>
+        <div class="stat-label mono">YEARS BUILDING AI &amp; DISTRIBUTED SYSTEMS</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><span data-count="35">0</span><sup>%</sup></div>
+        <div class="stat-label mono">FRAUD DETECTION LATENCY CUT — KAFKA + FLINK</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><span data-count="30">0</span><sup>%</sup></div>
+        <div class="stat-label mono">MTTR REDUCED VIA PRODUCTION OBSERVABILITY</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><span data-count="200">0</span><sup>+</sup></div>
+        <div class="stat-label mono">TEAMS OUTBUILT TO WIN A HACKATHON</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ EXPERIENCE ══════════ -->
+  <section class="work section" id="work" data-sector="04 — FLIGHT LOG">
+    <div class="section-head">
+      <span class="section-index mono">01</span>
+      <h2 class="section-title" data-split>Experience</h2>
+      <span class="section-note mono">A TIMELINE IS JUST DEPTH, TRAVELED</span>
     </div>
 
-    
-    <main class="drake-main">
-        <div id="smooth-wrapper">
-            <div id="smooth-content">
-
-                <div class="left-sidebar">
-                    <h2 class="designation">Manan Shah</h2>
-
-                    <img class="me" src="assets/images/Manan.jpg" alt="Me">
-                    <h2 class="email">mshah130@hawk.iit.edu</h2>
-                    <h2 class="address">Chicago, USA</h2>
-
-                    <ul class="social-profile d-flex align-items-center flex-wrap justify-content-center">
-                       
-                        <li>
-                            <a href="#"><i class="lab la-linkedin"></i></a>
-                        </li>
-                    </ul>
-                    <a href="/assets/Manan-Resume.pdf" class="theme-btn">
-                        <i class="las la-download"></i> Resume
-                    </a>
-                </div>
-
-                <section class="hero-section page-section scroll-to-page" id="home">
-
-                    <div class="custom-container">
-                        <div class="hero-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-home"></i> Introduction
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">Hello, <br><span>I am Manan Shah</span></h1>
-                            </div>
-                            
-        
-                            
-                        </div>
-                    </div>
-                </section>
-        
-                <section class="about-area page-section scroll-to-page" id="about">
-                    <div class="custom-container">
-                        <div class="about-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="lar la-user"></i> About
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">About me<br></h1>
-                            </div>
-                            <p class="scroll-animation" data-animation="fade_from_bottom">
-                            Passionate about building impactful tools and crafting efficient software solutions. With 2 years of hands‑on experience as a Software Engineer, I specialize in designing and developing scalable applications using Java, Python, and ASP.NET. I thrive in dynamic environments, blending my problem‑solving skills with a fresh, new‑grad mindset—always eager to learn, adapt, and push boundaries. From interactive databases to cloud‑based systems, I enjoy transforming ideas into reality through code. Excited to contribute my technical expertise and creativity to innovative projects!
-
-                              </p>
-                        </div>
-                    </div>
-                </section>
-        
-        
-                <sect<section class="resume-area page-section scroll-to-page" id="Education&Experience">
-                    <div class="custom-container">
-                      <div class="resume-content content-width">
-                        <div class="section-header">
-                          <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                            <i class="las la-briefcase"></i> Education & Experience
-                          </h4>
-                          <h1 class="scroll-animation" data-animation="fade_from_bottom">
-                            Education & <span>Experience</span>
-                          </h1>
-                        </div>
-                  
-                        <div class="resume-timeline">
-                  
-                          <!-- Education -->
-                          <div class="item scroll-animation" data-animation="fade_from_right">
-                            <span class="date">Aug 2023 – May 2025</span>
-                            <h2>Illinois Institute of Technology, Chicago, IL</h2>
-                            <p>Master’s of Science in Computer Science | GPA: 3.5/4.0</p>
-                          </div>
-                  
-                          <div class="item scroll-animation" data-animation="fade_from_right">
-                            <span class="date">May 2020 – Jul 2022</span>
-                            <h2>KJ Somaiya Institute of Management, Mumbai, India</h2>
-                            <p>Master in Computer Applications | GPA: 3.5/4.0</p>
-                          </div>
-                  
-                          <div class="item scroll-animation" data-animation="fade_from_right">
-                            <span class="date">Jun 2017 – May 2020</span>
-                            <h2>KJ Somaiya College of Science and Commerce, Mumbai, India</h2>
-                            <p>Bachelor of Science in Information Technology | GPA: 3.7/4.0</p>
-                          </div>
-                  
-                          <!-- Professional Experience -->
-                          <div class="item scroll-animation" data-animation="fade_from_right">
-                            <span class="date">Jun 2024 – Oct 2024</span>
-                            <h2>Frontend Web Development Intern</h2>
-                            <h5>Horizon World Salon, New York</h5>
-                            <li>Integrated five external APIs into the World Salon platform, reducing UI latency by 30% and enhancing application responsiveness.</li>
-                            <li>Implemented responsive design and optimized performance for speed and scalability; participated in code reviews within an agile team.</li>
-                          </div>
-                  
-                          <div class="item scroll-animation" data-animation="fade_from_right">
-                            <span class="date">Aug 2022 – Aug 2023</span>
-                            <h2>Associate Software Engineer</h2>
-                            <h5>Duck Creek Technologies, Mumbai, India</h5>
-                            <li>Resolved 50+ critical bugs via root cause analysis, cutting support tickets by 25% and boosting customer satisfaction by 15%.</li>
-                            <li>Led ASE → AKS migration, designing baseline architecture to increase stability and reduce operational costs by 25%.</li>
-                          </div>
-                  
-                          <div class="item scroll-animation" data-animation="fade_from_right">
-                            <span class="date">Jan 2022 – Jul 2022</span>
-                            <h2>Software Engineering Intern</h2>
-                            <h5>Duck Creek Technologies, Mumbai, India</h5>
-                            <li>Built a multi‑tier ASP.NET/SQL utility to streamline claim configuration, improving onboarding speed by 60%.</li>
-                            <li>Authored core tool algorithms in ASP.NET and designed the UI in Figma.</li>
-                          </div>
-                  
-                        </div>
-                      </div>
-                    </div>
-                  </section>
-        
-        
-        
-        
-                <section class="skills-area page-section scroll-to-page" id="skills">
-                    <div class="custom-container">
-                        <div class="skills-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-shapes"></i> my skills
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">Tools & <span>Technology</span></h1>
-                            </div>
-        
-                            <div class="row skills text-center">
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_left">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <img src="assets/images/Python.png" alt="Python">
-                                            <h1 class="percent">70%</h1>
-                                        </div>
-                                        <center<p class="name">Python</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <img src="assets/images/React-icon.svg.png" alt="ReactJS">
-                                            <h1 class="percent">85% 
-                                                
-                                            </h1>
-                                        </div>
-                                        <center<p class="name">ReactJS</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_top">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <img src="assets/images/project management.png" alt="Project Management">
-                                            <h1 class="percent">90%</h1>
-                                        </div>
-                                        <center<p class="name">Project Management</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_right">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <img src="assets/images/azure.png" alt="Power BI">
-                                            <h1 class="percent">95%</h1>
-                                        </div>
-                                        <center<p class="name">Azure</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_left">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <img src="assets/images/sql.png" alt="SQL">
-                                            <h1 class="percent">85%</h1>
-                                        </div>
-                                        <center<p class="name">SQL</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <img src="assets/images/powerbi.png" alt="Laravel/PHP">
-                                            <h1 class="percent">75%</h1>
-                                        </div>
-                                        <center<p class="name">AWS</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <img src="assets/images/spring.png" alt="Laravel/PHP">
-                                            <h1 class="percent">90%</h1>
-                                        </div>
-                                        <center<p class="name">Spring Boot</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <img src="assets/images/mongo1.svg" alt="visio">
-                                            <h1 class="percent">85%</h1>
-                                        </div>
-                                        <center<p class="name">MongoDB</p>
-                                    </div>
-                                </div>
-                            </div>
-        
-                        </div>
-                    </div>
-                </section>
-        
-        
-                <section class="services-area page-section scroll-to-page" id="projects">
-                    <div class="custom-container">
-                      <div class="services-content content-width">
-                  
-                        <!-- Section Header -->
-                        <div class="section-header">
-                          <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                            <i class="las la-project-diagram"></i> Projects
-                          </h4>
-                          <h1 class="scroll-animation" data-animation="fade_from_bottom">
-                            My <span>Projects</span>
-                          </h1>
-                        </div>
-                  
-                        <!-- Project Items -->
-                        <div class="services-items">
-                  
-                          <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                            <i class="las la-robot"></i>
-                            <h2>AI‑Powered Resume Analyzer</h2>
-                            <p>
-                              Developed a web‑based tool that scores resumes against job descriptions.  
-                              Integrated OpenAI API & NLP to extract keywords for ATS optimization,  
-                              implemented role‑based auth, and improved matching accuracy by 30%.
-                            </p>
-                          </div>
-                  
-                          <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                            <i class="las la-shopping-basket"></i>
-                            <h2>Smart Shopping List</h2>
-                            <p>
-                              Built a React Native app for creating shopping lists with real‑time price comparison.  
-                              Scraped multiple e‑commerce sites and integrated Firebase for storage,  
-                              delivering the best deals to users on the fly.
-                            </p>
-                          </div>
-                  
-                          <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                            <i class="las la-wallet"></i>
-                            <h2>Expense Tracker & Forecasting</h2>
-                            <p>
-                              Created a mobile app to track expenses and forecast budgets using ML.  
-                              Leveraged OCR (Tesseract) for receipt scanning and designed a budget recommendation engine  
-                              that adapts to spending patterns.
-                            </p>
-                          </div>
-                  
-                        </div>
-                      </div>
-                    </div>
-                  </section>
-        
-        
-                
-    
-                <section class="contact-area page-section scroll-content" id="contact">
-                    <div class="custom-container">
-                        <div class="contact-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-dollar-sign"></i> contact
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">Let's Work <span>Together!</span></h1>
-                            </div>
-                            <h3 class="scroll-animation" data-animation="fade_from_bottom">mshah130@hawk.iit.edu</h3>
-                            <p id="required-msg">* Marked fields are required to fill.</p>
-
-                            <form class="contact-form scroll-animation" data-animation="fade_from_bottom" method="POST" action="https://formspree.io/f/mayrqerg">
-                                <div class="alert alert-success messenger-box-contact__msg" style="display: none" role="alert">
-                                    Your message was sent successfully.
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <label for="full-name">full Name <sup>*</sup></label>
-                                            <input type="text" name="full-name" id="full-name" placeholder="Your Full Name">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <label for="email">Email <sup>*</sup></label>
-                                            <input type="email" name="email" id="email" placeholder="Your email adress">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <label for="phone-number">phone <span>(optional)</span></label>
-                                            <input type="text" name="phone-number" id="phone-number" placeholder="Your number phone">
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                    <div class="col-md-12">
-                                        <div class="input-group">
-                                            <label for="message">message</label>
-                                            <textarea name="message" id="message" placeholder="Wrire your message here ..."></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                    
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="input-group submit-btn-wrap">
-                                            <button class="theme-btn" name="submit" type="submit" id="submit-form">send message</button>
-
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </form>
-
-                            <!-- <div class="col-md-12" style="margin-top: 25px;">
-                                <a href="assets/Manan-Resume.pdf">
-
-                                    <button class="theme-btn">↓ Resume </button>
-                                </a>    
-                            </div> -->
-                        </div>
-                    </div>
-                </section>
-            </div>
+    <article class="job">
+      <div class="job-meta">
+        <span class="job-year serif">2025</span>
+        <span class="job-dates mono">APR 2025 — PRESENT</span>
+      </div>
+      <div class="job-body">
+        <h3 class="job-title">Software Development Engineer <span class="job-focus mono">PAYMENTS / GENAI</span></h3>
+        <div class="job-org mono">PAYPAL · CHICAGO</div>
+        <ul class="job-points">
+          <li>Design Java 17 and Spring Boot microservices for payment tokenization, authorization and merchant onboarding on AWS, improving service latency 30% at transaction scale.</li>
+          <li>Built RAG pipelines with LangChain, Amazon Bedrock and Pinecone powering fraud investigation, cutting manual review 25%, plus LLM orchestration with function calling that automates dispute resolution.</li>
+          <li>Implemented Kafka and Apache Flink event pipelines over live transaction streams, reducing fraud detection latency 35%.</li>
+          <li>Own the platform end to end: Terraform, Kubernetes and Helm provisioning, OAuth2/JWT/RBAC API security, and OpenTelemetry-Prometheus-Grafana observability that cut MTTR 30%.</li>
+        </ul>
+        <div class="job-tags mono">
+          <span>Java 17</span><span>Spring Boot</span><span>AWS</span><span>Kafka + Flink</span><span>LangChain</span><span>Bedrock</span>
         </div>
-    </main>
-    
+      </div>
+    </article>
 
-    <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/owl.carousel.js"></script>
-    <script src="assets/js/gsap.min.js"></script>
-    <script src="assets/js/ScrollTrigger.min.js"></script>
-    <script src="assets/js/ScrollToPlugin.min.js"></script>
-    <script src="assets/js/lightbox.min.js"></script>
-    
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/ajax-form.js"></script>
-    <script src="assets/js/color.js"></script>
+    <article class="job">
+      <div class="job-meta">
+        <span class="job-year serif">2020</span>
+        <span class="job-dates mono">MAR 2020 — JUL 2023</span>
+      </div>
+      <div class="job-body">
+        <h3 class="job-title">Software Engineer <span class="job-focus mono">DISTRIBUTED SYSTEMS</span></h3>
+        <div class="job-org mono">DUCK CREEK TECHNOLOGIES</div>
+        <ul class="job-points">
+          <li>Built Java, Spring Boot and Hibernate microservices behind policy administration, billing, claims and rating for enterprise P&amp;C insurance platforms.</li>
+          <li>Migrated legacy Java monoliths into Spring Boot services on AWS, cutting deployment cycles 40%, and shipped React policyholder portals with real-time policy, billing and claims visibility.</li>
+          <li>Designed secure ACORD-standard REST APIs integrating payment processors, agent portals and third-party insurance systems.</li>
+          <li>Tuned PostgreSQL and MongoDB with schema redesign and indexing for 45% faster reporting, and ran Jenkins-Docker-Kubernetes CI/CD for the team's releases.</li>
+        </ul>
+        <div class="job-tags mono">
+          <span>Java</span><span>Spring Boot</span><span>Hibernate</span><span>React</span><span>PostgreSQL</span><span>Kubernetes</span>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ══════════ PROJECTS (horizontal) ══════════ -->
+  <section class="projects section" id="projects" data-sector="05 — ARTIFACTS">
+    <div class="projects-pin" id="projectsPin">
+      <div class="section-head projects-head">
+        <span class="section-index mono">02</span>
+        <h2 class="section-title" data-split>Projects</h2>
+        <span class="section-note mono">SHIPPED. LIVE. NOT SLIDEWARE.</span>
+      </div>
+      <div class="projects-track" id="projectsTrack">
+
+        <article class="card" data-tilt>
+          <div class="card-index mono">01</div>
+          <h3 class="card-title">TrailMail</h3>
+          <div class="card-status mono"><span class="dot"></span> LIVE — TRAILMAILS.COM</div>
+          <p class="card-desc">
+            A Chrome extension that predicts work emails from public company patterns and sends
+            personalized outreach through Gmail. Entirely client side, send only OAuth scope,
+            open and click tracking, zero servers holding your data.
+          </p>
+          <div class="card-tags mono">
+            <span>JavaScript</span><span>Gmail API</span><span>Hunter.io</span><span>Chrome MV3</span>
+          </div>
+          <a class="card-link mono" href="https://trailmails.com" target="_blank" rel="noopener" data-magnetic>VISIT ↗</a>
+        </article>
+
+        <article class="card" data-tilt>
+          <div class="card-index mono">02</div>
+          <h3 class="card-title">GitPixelPush</h3>
+          <div class="card-status mono"><span class="dot"></span> LIVE — GITPIXELPUSH.COM</div>
+          <p class="card-desc">
+            Draw pixel art on your GitHub contribution graph. A browser side engine that writes
+            back dated commits through the Git Data API, no clone, no server, your token never
+            leaves the page.
+          </p>
+          <div class="card-tags mono">
+            <span>Git Data API</span><span>Cloudflare Workers</span><span>OAuth</span><span>Vanilla JS</span>
+          </div>
+          <a class="card-link mono" href="https://gitpixelpush.com" target="_blank" rel="noopener" data-magnetic>VISIT ↗</a>
+        </article>
+
+        <article class="card" data-tilt>
+          <div class="card-index mono">03</div>
+          <h3 class="card-title">Agentic Voice System</h3>
+          <div class="card-status mono"><span class="dot dot-amber"></span> ENTERPRISE POC</div>
+          <p class="card-desc">
+            End to end voice agent orchestration for an enterprise prospect. LLM reasoning,
+            webhooks, CRM style data handoffs, and conversation logic that survives multi step
+            tasks without losing the plot.
+          </p>
+          <div class="card-tags mono">
+            <span>Bland AI</span><span>n8n</span><span>LLM APIs</span><span>Webhooks</span>
+          </div>
+          <span class="card-link card-link-static mono">CASE STUDY ON REQUEST</span>
+        </article>
+
+        <article class="card" data-tilt>
+          <div class="card-index mono">04</div>
+          <h3 class="card-title">DialDo</h3>
+          <div class="card-status mono"><span class="dot"></span> LIVE — DIALDO.COM</div>
+          <p class="card-desc">
+            Give your Mac a phone number. A local-first voice agent that answers real calls,
+            finds files, summarizes PDFs, writes documents and sends email, guarded by caller
+            allowlists, a spoken PIN and per-action confirmation.
+          </p>
+          <div class="card-tags mono">
+            <span>Voice Agents</span><span>Twilio</span><span>OpenAI</span><span>Node</span>
+          </div>
+          <a class="card-link mono" href="https://dialdo.com" target="_blank" rel="noopener" data-magnetic>VISIT ↗</a>
+        </article>
+
+        <article class="card card-cta" data-tilt>
+          <div class="card-index mono">05</div>
+          <h3 class="card-title">Your idea<br/>here</h3>
+          <p class="card-desc">
+            The next one gets built at your company. I prototype fast and ship things
+            that survive contact with production.
+          </p>
+          <a class="card-link mono" href="#contact" data-magnetic>START A CONVERSATION ↗</a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SKILLS ══════════ -->
+  <section class="skills section" id="skills" data-sector="06 — STACK">
+    <div class="section-head">
+      <span class="section-index mono">03</span>
+      <h2 class="section-title" data-split>Stack</h2>
+      <span class="section-note mono">TOOLS ARE TEMPORARY. SYSTEMS THINKING ISN’T.</span>
+    </div>
+
+    <div class="marquee" data-speed="1">
+      <div class="marquee-inner mono">
+        RAG · LANGCHAIN · AMAZON BEDROCK · GPT-4 · LLM ORCHESTRATION · AI AGENTS · FUNCTION CALLING · EMBEDDINGS · SEMANTIC SEARCH · PINECONE ·&nbsp;
+      </div>
+    </div>
+    <div class="marquee" data-speed="-1">
+      <div class="marquee-inner mono">
+        JAVA 17 · PYTHON · TYPESCRIPT · SQL · SPRING BOOT · SPRING CLOUD · KAFKA · FLINK · GRAPHQL · GRPC · MICROSERVICES · REDIS ·&nbsp;
+      </div>
+    </div>
+    <div class="marquee" data-speed="0.7">
+      <div class="marquee-inner mono">
+        AWS EKS · LAMBDA · AURORA · DYNAMODB · TERRAFORM · DOCKER · KUBERNETES · HELM · GITHUB ACTIONS · PROMETHEUS · GRAFANA ·&nbsp;
+      </div>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-block">
+        <h4 class="skill-block-title mono">GENAI / LLM</h4>
+        <p>RAG, LangChain, Amazon Bedrock, GPT-4, LLM orchestration, AI agents, function calling, prompt engineering, LLM evaluation, embeddings and semantic search over Pinecone and ChromaDB.</p>
+      </div>
+      <div class="skill-block">
+        <h4 class="skill-block-title mono">BACKEND / DISTRIBUTED</h4>
+        <p>Java 17, Python, Spring Boot, Spring Cloud, Hibernate, REST, GraphQL, gRPC, Kafka and Flink event-driven pipelines, microservices, fault tolerance at transaction scale.</p>
+      </div>
+      <div class="skill-block">
+        <h4 class="skill-block-title mono">CLOUD / PLATFORM</h4>
+        <p>AWS (EKS, Lambda, API Gateway, Aurora, DynamoDB, SQS/SNS, CloudWatch), Terraform, Docker, Kubernetes, Helm, Jenkins, GitHub Actions, infrastructure as code.</p>
+      </div>
+      <div class="skill-block">
+        <h4 class="skill-block-title mono">RELIABILITY / SECURITY</h4>
+        <p>OpenTelemetry, Prometheus, Grafana, Datadog, OAuth2, JWT, RBAC, secure API design, PostgreSQL-Redis-MongoDB query optimization, JUnit, Mockito, Testcontainers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ EDUCATION ══════════ -->
+  <section class="edu section" id="edu" data-sector="07 — TRAINING">
+    <div class="section-head">
+      <span class="section-index mono">04</span>
+      <h2 class="section-title" data-split>Education</h2>
+      <span class="section-note mono">THREE DEGREES OF PREPARATION</span>
+    </div>
+    <div class="edu-rows">
+      <div class="edu-row">
+        <span class="edu-year serif">2025</span>
+        <span class="edu-school">Illinois Institute of Technology</span>
+        <span class="edu-degree">MS, Computer Science — Chicago</span>
+      </div>
+      <div class="edu-row">
+        <span class="edu-year serif">2022</span>
+        <span class="edu-school">K J Somaiya Institute of Management</span>
+        <span class="edu-degree">Master of Computer Applications — Mumbai</span>
+      </div>
+      <div class="edu-row">
+        <span class="edu-year serif">2020</span>
+        <span class="edu-school">K J Somaiya Institute of Management</span>
+        <span class="edu-degree">BS, Information Technology — Mumbai</span>
+      </div>
+    </div>
+    <div class="edu-achievements">
+      <div class="achievement" data-tilt>
+        <span class="achievement-num serif">1st</span>
+        <p><strong>Hackathon Winner.</strong> 1st place among 200+ teams, Duck Creek Hatchathon 2022.</p>
+      </div>
+      <div class="achievement" data-tilt>
+        <span class="achievement-num serif">50+</span>
+        <p><strong>Outstanding Academic Coach.</strong> Illinois Tech, 50+ students mentored.</p>
+      </div>
+      <div class="achievement" data-tilt>
+        <span class="achievement-num serif">AZ</span>
+        <p><strong>Certified.</strong> Microsoft Azure Fundamentals · SQL for Data Science.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CONTACT ══════════ -->
+  <section class="contact section" id="contact" data-sector="08 — LANDING">
+    <div class="contact-inner">
+      <div class="contact-kicker mono reveal-line">THE PART WHERE YOU EMAIL ME</div>
+      <h2 class="contact-title" data-split-words>Let’s build <em>something great.</em></h2>
+      <a class="contact-email mono" href="mailto:mananshah03691@gmail.com" data-magnetic data-scramble>
+        mananshah03691@gmail.com
+      </a>
+      <div class="contact-links">
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/mananshah2254" target="_blank" rel="noopener" data-magnetic><span>LINKEDIN ↗</span></a>
+        <a class="btn btn-ghost" href="https://github.com/mananshah2254" target="_blank" rel="noopener" data-magnetic><span>GITHUB ↗</span></a>
+        <a class="btn btn-primary" href="mailto:mananshah03691@gmail.com" data-magnetic><span>EMAIL ME</span></a>
+      </div>
+      <div class="contact-meta mono">
+        CHICAGO, IL · OPEN TO RELOCATE · SDE @ PAYPAL · RESPONDS FAST
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="mono">© 2026 MANAN SHAH</span>
+    <span class="mono footer-mid">FLOWN, NOT SCROLLED. EVERY ISLAND BELOW WAS PLACED BY HAND.</span>
+    <span class="mono" id="hudClock">00:00:00</span>
+  </footer>
+
+</main>
+
+<!-- Fallback background if WebGL fails -->
+<div class="webgl-fallback" id="webglFallback" hidden></div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script type="module" src="main.js"></script>
+<script>
+  // failsafe: never let the preloader trap visitors if the module can't boot
+  setTimeout(function () {
+    if (!window.__4D_BOOTED) {
+      var p = document.getElementById("preloader");
+      var o = document.getElementById("enterOverlay");
+      if (p) p.remove();
+      if (o) o.remove();
+    }
+  }, 9000);
+</script>
 </body>
-
 </html>
