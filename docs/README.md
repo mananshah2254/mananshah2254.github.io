@@ -56,53 +56,107 @@ GTA-trailer finishing layer on top of the base world:
 - **Extras**: lens-flare ghost train off the sun, puff-cluster clouds,
   two high jets dragging contrails, float spray at deck level.
 
-## Readability pass (2026-08-31)
-Text sits over a live, moving world, so contrast was measured against the
-WORST case: a panel composited over sun glare on water (treat the backdrop
-as white, not as the navy). Under that test the old values failed WCAG AA:
-`--ink-faint` was 2.06:1 and `--ink-dim` 3.70:1. Now 5.45:1 and 8.59:1.
-- `--ink-dim` `#bcbacb` → `#d4d2e0`, `--ink-faint` `#8a88a3` → `#a9a7bd`.
-- Content panels (.card/.stat/.skill-block/.achievement/.about-facts) went to
-  0.86–0.88 alpha, and the work/skills/edu scrim to 0.82, so bright water
-  cannot punch through the frosting. Don't drop these back toward 0.7.
-- Hero and contact radial scrims now reach ~88% instead of fading out at
-  76–78%, so long titles don't run off the edge of the scrim.
-- Mono labels were 0.55rem (~8.8px), too small to read regardless of
-  contrast; they are 0.62rem now.
-- Still no `text-shadow` on the word-masked titles, for the clipping reason
-  in Notes below. Scrims do the work instead.
+## Content rebuild + readability rebuild (2026-10-04)
 
-## Polish pass (2026-08-31)
-Type scale and color ramp, done after the contrast work above.
-- **Type floor.** 36 declarations were under 16px and a whole label tier sat
-  at 8.0-9.6px, too small to read over a moving world at any contrast. The
-  label tier moved up ~2.7px (floor is now 11.2px) and the body tier to
-  15.2-16.3px. Don't reintroduce sizes below `0.7rem`.
-- **Tracking follows size.** The 0.32-0.42em letter-spacing was calibrated
-  for 8px type; at 11-12px it made words fall apart, so it came down to
-  0.24-0.30em. If you resize a label, move its tracking the opposite way.
-- **One text hue.** `--ink` is warm (42 deg) but the dim tiers were lavender
-  (~247 deg, the opposite side of the wheel), which read as muddy rather
-  than deliberate. The ramp is now warm throughout: `--ink-dim` `#dad5cd`
-  (9.30:1 over glare), `--ink-faint` `#aca69b` (5.62:1). Warm ink + amber
-  accent + dusk navy ground is the intended pairing.
-- `--line` went from `rgba(255,255,255,0.08)` to `rgba(246,243,236,0.14)`;
-  at 0.08 the card edges were invisible and panels read as smudges.
+The page had drifted from the resume and the text was still hard to read.
+Both were fixed in one pass.
+
+### Content: `Manan_Resume.pdf` is the source of truth
+Positioning moved from "SDE, distributed systems" to **AI Engineer**, and
+every claim now traces to the resume:
+- PayPal, **Software Engineer**, Apr 2025 to present. The bullets describe
+  the real work (a Python/FastAPI service for merchant-dispute analysis,
+  Bedrock embeddings + Pinecone retrieval, document processing, Kafka
+  indexing, Docker/K8s/CloudWatch) instead of the previous payment
+  tokenization and fraud-latency story.
+- Duck Creek dates corrected: **Mar 2021** to Jul 2023 (the page said 2020).
+- **Every invented metric is gone.** The old copy claimed 30% latency, 35%
+  fraud-detection latency, 25% manual review, 40% deploy cycles, 45% faster
+  reporting and 30% MTTR. None of those appear in the resume. The telemetry
+  strip now counts things anyone can verify: years, domains, builds, live
+  domains. Do not reintroduce a number that is not on the resume.
+- Stack section mirrors the resume's seven skill categories verbatim.
+- The resume PDF ships at `assets/Manan_Shah_Resume.pdf` and is linked from
+  the nav, the hero and the contact section.
+
+Kept deliberately even though this resume does not list them: the two prior
+degrees and the three achievements. A portfolio may hold more than a
+one-page resume. They came from the earlier version of the site.
+
+### Projects: the full history, and only links that resolve
+Nine projects plus a CTA card. Live domains (trailmails.com, dialdo.com,
+gitpixelpush.com) and public repos (`trailmail`, `gitpixelpush`,
+`OutreachOS`) were each checked for a 200 before being linked. Relay,
+ConnectPilot and the voice POC are private, so they carry a status label
+instead of a dead link. **Verify before adding a link here.**
+
+### Readability: the world recedes
+The real cause was never contrast on the text, it was that the canvas never
+got out of the way. The old ramp dimmed it to 0.82 at most, so every
+section composited over a bright, moving, high-contrast world.
+- The canvas now fades to **0.32** over the first 16% of the scroll, and
+  `.world-dim` lays a scrim to 0.82 on top of what is left. The hero keeps
+  the full spectacle; everything below it reads on a quiet backdrop.
+- **One surface system.** Every text-bearing section sits on `.sheet`
+  (`rgba(10,11,22,0.94)`). Cards and skill blocks are a single raised tier
+  on top of it. No more glass-on-glass, no more per-element scrims.
+- **The pinned horizontal project gallery is gone.** It hijacked the
+  scroll, clipped cards at the viewport edge and could not hold nine
+  projects. It is a plain responsive grid now.
+- **The custom cursor is gone**, and with it `cursor: none` on the body.
+  Replacing a pointer the OS already draws well with a lagging div is a
+  cost with no readability benefit.
+- **No `-webkit-box-reflect` on the big titles.** It painted a mirrored
+  copy of the headline exactly where the hero paragraph and the contact
+  email sit; the ghost text read as a rendering bug.
+- Body type is 17px/1.72, paragraphs are capped at 64ch, and mono tracking
+  came down to 0.14-0.20em. Nothing on the page is below 0.6rem.
+- Added a skip link, visible `:focus-visible` rings, and `scroll-margin-top`
+  so anchors clear the fixed nav.
+
+### Performance
+Measured with a WebGL draw-call counter, same machine, same scroll
+positions, software rasterizer:
+
+| | draw calls / frame |
+|---|---|
+| mid-page, before | 7278 |
+| mid-page, after | 1890 |
+
+A 74% cut, because once the world is dimmed the page renders every other
+frame, parks the planar water reflection (a full extra scene render from
+the mirror's viewpoint) and skips the plane's cube-camera probe (six more).
+A hidden tab renders nothing at all. Also: pixel ratio capped at 1.75
+instead of 2, and the film grain no longer animates a full-viewport
+repaint four times a second. Hero cost is unchanged.
+
+### Soundtrack
+Rewritten. The old bed was a sawtooth engine drone over a static A-major
+pad, which sat on one chord forever. It is now an actual piece: a slow
+four-chord dusk progression in A minor (Am9, Fmaj9, Cmaj9, Gmaj6) at 7.4s
+per chord, a sparse bell voice that walks the current chord's voicing on an
+eighth-note grid into a long delay, filtered pink-ish noise as airflow in
+place of the engine, and a breathing sub. Notes are scheduled 250ms ahead
+of the audio clock on a `setInterval`, not on the render loop, so a 40ms
+frame spent drawing a city cannot make the music stutter. Scroll opens the
+airflow and the pad filter; it no longer bends the pitch, which is why fast
+scrolling stopped sounding like a siren.
 
 ## Design system
 - **Type**: Instrument Sans (display) + Instrument Serif italics (accent words)
   + Inter (body) + Geist Mono (labels/flight HUD: ALT / SPD / sector)
-- **Color**: dusk navy `#0d0e1d`, warm off-white ink, amber accent `#ffab70`
+- **Color**: dusk navy `#0a0b16`, sheet `rgba(10,11,22,.94)`, warm off-white
+  ink, amber accent `#ffab70`
 - Photo: `assets/manan.jpg` (Brooklyn Bridge, cropped 4:5, web-compressed)
 
 ## Stack
 - Vanilla HTML/CSS/JS, no build step (drops straight onto GitHub Pages)
 - Three.js r0.160 (importmap) + UnrealBloomPass (gentle, 0.38)
-- GSAP + ScrollTrigger (pinned horizontal project gallery, scrub reveals, counters)
+- GSAP + ScrollTrigger (scrub reveals, staggered card entrances, counters)
 - Lenis smooth scroll
-- **Generative WebAudio soundtrack** — wind through the airframe, a low engine
-  that answers the scroll throttle, a warm A-major pad, and soft pentatonic
-  chimes on section changes. Synthesized in-browser, zero audio files.
+- **Generative WebAudio score** — a four-chord A-minor progression, a bell
+  voice walking the current chord, airflow noise and a breathing sub.
+  Synthesized in-browser, zero audio files. See the 2026-10 pass above.
 
 ## Run locally
 ```bash
@@ -123,4 +177,5 @@ python3 -m http.server 8899   # then open http://localhost:8899
 - Hero and contact have radial scrims so type always beats the world. Don't
   add text-shadow to the word-masked titles (hero/contact): the overflow-hidden
   word spans clip the shadow into visible boxes.
+- Everything else is on `.sheet`. If you add a section, give it one.
 - Copy style: no em-dashes in prose.

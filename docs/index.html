@@ -3,31 +3,37 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Manan Shah — Software Engineer</title>
-<meta name="description" content="Manan Shah. Software Development Engineer at PayPal building distributed systems and production GenAI. San Francisco, CA." />
-<meta property="og:title" content="Manan Shah — Software Engineer" />
-<meta property="og:description" content="Payments-scale microservices, RAG pipelines, agentic AI. A portfolio in depth." />
+<title>Manan Shah — AI Engineer</title>
+<meta name="description" content="Manan Shah. AI Engineer at PayPal building LLM, RAG and agentic systems in production. Python, FastAPI, Amazon Bedrock, Pinecone, Kafka, Kubernetes. San Francisco, CA." />
+<meta name="theme-color" content="#0b0c18" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Manan Shah — AI Engineer" />
+<meta property="og:description" content="RAG pipelines, agentic workflows and the backends under them. Three products live on the internet." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://unpkg.com" crossorigin />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='20' y='20' width='60' height='60' rx='8' fill='none' stroke='%237583ff' stroke-width='6'/></svg>" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='20' y='20' width='60' height='60' rx='8' fill='none' stroke='%23ffab70' stroke-width='6'/></svg>" />
 </head>
 <body>
+
+<a class="skip-link" href="#main">Skip to content</a>
 
 <!-- ══════════ PRELOADER ══════════ -->
 <div class="preloader" id="preloader">
   <div class="preloader-inner">
     <div class="preloader-count mono" id="preloaderCount">00</div>
     <div class="preloader-bar"><span id="preloaderBar"></span></div>
-    <div class="preloader-label mono">MANAN SHAH — PORTFOLIO 2026</div>
+    <div class="preloader-label mono">MANAN SHAH — AI ENGINEER</div>
   </div>
 </div>
 
 <!-- ══════════ ENTER OVERLAY (unlocks audio) ══════════ -->
 <div class="enter-overlay" id="enterOverlay" hidden>
   <div class="enter-name">Manan Shah</div>
-  <div class="enter-role mono">SOFTWARE DEVELOPMENT ENGINEER · PAYPAL</div>
+  <div class="enter-role mono">AI ENGINEER · PAYPAL · SAN FRANCISCO</div>
   <div class="enter-mission mono">FLIGHT MS-26 · BAY TOUR · 8 CHECKPOINTS · CLEAR SKIES</div>
   <div class="enter-actions">
     <button class="btn btn-primary" id="enterBtn" data-magnetic><span>ENTER WITH SOUND</span></button>
@@ -35,19 +41,17 @@
   </div>
 </div>
 
-<!-- ══════════ WEBGL CANVAS ══════════ -->
-<canvas id="scene"></canvas>
-<div class="grain"></div>
-<div class="vignette"></div>
-
-<!-- ══════════ CUSTOM CURSOR ══════════ -->
-<div class="cursor" id="cursor"></div>
-<div class="cursor-dot" id="cursorDot"></div>
+<!-- ══════════ WEBGL CANVAS + ATMOSPHERE ══════════ -->
+<canvas id="scene" aria-hidden="true"></canvas>
+<!-- the world recedes behind this once you leave the hero, so text always wins -->
+<div class="world-dim" id="worldDim" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
 
 <!-- ══════════ HUD ══════════ -->
 <div class="toast mono" id="toast"><span class="toast-check">◈</span><span id="toastText"></span></div>
 
-<div class="hud">
+<div class="hud" aria-hidden="true">
   <div class="hud-item hud-tl mono" id="hudTravel">ALT 0000 FT</div>
   <div class="hud-item hud-tr mono" id="hudSpd">SPD 000 KT</div>
   <div class="hud-item hud-bl mono" id="hudSection">01 — TAKEOFF</div>
@@ -57,36 +61,40 @@
 <!-- ══════════ NAV ══════════ -->
 <header class="nav">
   <a class="nav-logo" href="#hero" data-magnetic>Manan Shah</a>
-  <nav class="nav-links">
-    <a href="#work" data-scramble data-magnetic>WORK</a>
-    <a href="#projects" data-scramble data-magnetic>PROJECTS</a>
-    <a href="#about" data-scramble data-magnetic>ABOUT</a>
-    <a href="#contact" data-scramble data-magnetic>CONTACT</a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="#work" data-magnetic>Experience</a>
+    <a href="#projects" data-magnetic>Projects</a>
+    <a href="#skills" data-magnetic>Stack</a>
+    <a href="#contact" data-magnetic>Contact</a>
   </nav>
-  <button class="audio-toggle" id="audioToggle" data-magnetic aria-label="Toggle sound">
-    <span class="audio-bars"><i></i><i></i><i></i><i></i></span>
-    <span class="audio-label mono" id="audioLabel">SOUND OFF</span>
-  </button>
+  <div class="nav-right">
+    <a class="nav-resume mono" href="assets/Manan_Shah_Resume.pdf" target="_blank" rel="noopener" data-magnetic>RÉSUMÉ ↗</a>
+    <button class="audio-toggle" id="audioToggle" data-magnetic aria-label="Toggle sound">
+      <span class="audio-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span class="audio-label mono" id="audioLabel">SOUND OFF</span>
+    </button>
+  </div>
 </header>
 
 <main id="main">
 
   <!-- ══════════ HERO ══════════ -->
   <section class="hero section" id="hero" data-sector="01 — TAKEOFF">
-    <div class="hero-kicker mono reveal-line">MANAN SHAH · SDE @ PAYPAL · SAN FRANCISCO</div>
+    <div class="hero-kicker mono reveal-line">MANAN SHAH · AI ENGINEER @ PAYPAL · SAN FRANCISCO, CA</div>
     <h1 class="hero-title" data-split-words>
-      Building <em>agentic AI systems</em> that survive contact with production.
+      Building <em>LLM systems</em> that hold up in production.
     </h1>
     <p class="hero-sub reveal-line">
-      Four years of distributed systems and GenAI. Payment rails and
-      fraud-hunting RAG pipelines at PayPal by day, products that are
-      live on the internet by night.
+      Three-plus years of software engineering across fintech and enterprise.
+      I build RAG pipelines, agentic workflows and the backends underneath them
+      at PayPal, and ship products of my own that are live on the internet.
     </p>
     <div class="hero-cta reveal-line">
       <a class="btn btn-primary" href="#work" data-magnetic><span>VIEW WORK</span></a>
+      <a class="btn btn-ghost" href="assets/Manan_Shah_Resume.pdf" target="_blank" rel="noopener" data-magnetic><span>RÉSUMÉ ↗</span></a>
       <a class="btn btn-ghost" href="#contact" data-magnetic><span>GET IN TOUCH</span></a>
     </div>
-    <div class="scroll-hint mono">
+    <div class="scroll-hint mono" aria-hidden="true">
       <span class="scroll-hint-line"></span>
       SCROLL — YOU HAVE THE CONTROLS
     </div>
@@ -94,25 +102,32 @@
 
   <!-- ══════════ ABOUT ══════════ -->
   <section class="about section" id="about" data-sector="02 — ABOUT">
-    <div class="about-grid">
-      <figure class="about-photo" data-tilt>
-        <img src="assets/manan.jpg" alt="Manan Shah on the Brooklyn Bridge, Manhattan skyline behind" loading="lazy" />
-        <figcaption class="mono">BROOKLYN BRIDGE, NYC</figcaption>
-      </figure>
-      <div class="about-body">
-        <h2 class="section-title" data-split>About</h2>
-        <p class="about-text" data-words>
-          I spent the last four years teaching machines to move money and reason
-          about it. Payment microservices and fraud-hunting RAG pipelines at
-          PayPal, enterprise insurance platforms at Duck Creek, and products I
-          designed, built and shipped alone, live on the internet today.
-          I prototype like it is a sport, then harden the result until it holds
-          in production. Ambiguous problem in, working system out.
-        </p>
-        <div class="about-facts">
-          <div class="fact"><span class="mono fact-k">CURRENTLY</span><span>SDE at PayPal · payments &amp; GenAI</span></div>
-          <div class="fact"><span class="mono fact-k">EDUCATION</span><span>MS Computer Science, Illinois Tech ’25</span></div>
-          <div class="fact"><span class="mono fact-k">BASE</span><span>San Francisco, CA · open to relocate</span></div>
+    <div class="sheet">
+      <div class="about-grid">
+        <figure class="about-photo" data-tilt>
+          <img src="assets/manan.jpg" alt="Manan Shah on the Brooklyn Bridge, Manhattan skyline behind" width="800" height="1000" loading="lazy" decoding="async" />
+          <figcaption class="mono">BROOKLYN BRIDGE, NYC</figcaption>
+        </figure>
+        <div class="about-body">
+          <div class="section-head section-head-tight">
+            <span class="section-index mono">01</span>
+            <h2 class="section-title" data-split>About</h2>
+          </div>
+          <p class="about-text" data-words>
+            I am an AI engineer with a backend engineer's habits. At PayPal I build
+            the LLM services that help support teams reason about merchant disputes:
+            retrieval over years of resolved cases, grounded generation on top of it,
+            and the unglamorous pipeline work that makes both trustworthy. Before
+            that, three years on enterprise insurance platforms taught me what
+            production actually costs. I prototype fast, then harden the result
+            until it holds. Ambiguous problem in, working system out.
+          </p>
+          <div class="about-facts">
+            <div class="fact"><span class="mono fact-k">CURRENTLY</span><span>Software Engineer at PayPal, AI and LLM systems</span></div>
+            <div class="fact"><span class="mono fact-k">FOCUS</span><span>RAG, agents, embeddings, semantic search</span></div>
+            <div class="fact"><span class="mono fact-k">EDUCATION</span><span>MS Computer Science, Illinois Tech, 2025</span></div>
+            <div class="fact"><span class="mono fact-k">BASE</span><span>San Francisco, CA, open to relocate</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -120,147 +135,271 @@
 
   <!-- ══════════ STATS ══════════ -->
   <section class="stats section" id="stats" data-sector="03 — TELEMETRY">
-    <div class="stats-grid">
-      <div class="stat">
-        <div class="stat-num"><span data-count="4">0</span><sup>+</sup></div>
-        <div class="stat-label mono">YEARS BUILDING AI &amp; DISTRIBUTED SYSTEMS</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num"><span data-count="35">0</span><sup>%</sup></div>
-        <div class="stat-label mono">FRAUD DETECTION LATENCY CUT — KAFKA + FLINK</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num"><span data-count="30">0</span><sup>%</sup></div>
-        <div class="stat-label mono">MTTR REDUCED VIA PRODUCTION OBSERVABILITY</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num"><span data-count="200">0</span><sup>+</sup></div>
-        <div class="stat-label mono">TEAMS OUTBUILT TO WIN A HACKATHON</div>
+    <div class="sheet sheet-flat">
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-num"><span data-count="3">0</span><sup>+</sup></div>
+          <div class="stat-label mono">YEARS SHIPPING PRODUCTION SOFTWARE</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num"><span data-count="2">0</span></div>
+          <div class="stat-label mono">DOMAINS: FINTECH AND ENTERPRISE INSURANCE</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num"><span data-count="9">0</span></div>
+          <div class="stat-label mono">PRODUCTS DESIGNED, BUILT AND SHIPPED SOLO</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num"><span data-count="3">0</span></div>
+          <div class="stat-label mono">LIVE DOMAINS RUNNING IN PUBLIC TODAY</div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ══════════ EXPERIENCE ══════════ -->
   <section class="work section" id="work" data-sector="04 — FLIGHT LOG">
-    <div class="section-head">
-      <span class="section-index mono">01</span>
-      <h2 class="section-title" data-split>Experience</h2>
-      <span class="section-note mono">A TIMELINE IS JUST DEPTH, TRAVELED</span>
+    <div class="sheet">
+      <div class="section-head">
+        <span class="section-index mono">02</span>
+        <h2 class="section-title" data-split>Experience</h2>
+        <span class="section-note mono">A TIMELINE IS JUST DEPTH, TRAVELED</span>
+      </div>
+
+      <article class="job">
+        <div class="job-meta">
+          <span class="job-year serif">2025</span>
+          <span class="job-dates mono">APR 2025 — PRESENT</span>
+        </div>
+        <div class="job-body">
+          <h3 class="job-title">Software Engineer <span class="job-focus mono">AI / LLM PLATFORM</span></h3>
+          <div class="job-org mono">PAYPAL · SAN FRANCISCO, CA</div>
+          <ul class="job-points">
+            <li>Built a Python and FastAPI AI service that helps support teams analyze merchant disputes and retrieve relevant resolutions from previously resolved cases.</li>
+            <li>Created a Retrieval-Augmented Generation pipeline using Amazon Bedrock embeddings and Pinecone for semantic search across historical dispute cases and supporting documents.</li>
+            <li>Developed document processing workflows to clean dispute data, chunk large case records, generate embeddings and store metadata for filtered retrieval.</li>
+            <li>Integrated Amazon Bedrock language models with retrieved case context to generate concise resolution summaries and suggested next steps for support agents.</li>
+            <li>Added prompt templates, structured outputs, retrieval filters and validation checks to keep generated recommendations relevant and grounded in dispute data.</li>
+            <li>Used Apache Kafka to process new dispute events asynchronously and trigger background indexing workflows without slowing down customer-facing APIs.</li>
+            <li>Containerized the application with Docker and deployed it on AWS using Kubernetes, GitHub Actions and CloudWatch for CI/CD, monitoring and production troubleshooting.</li>
+          </ul>
+          <div class="job-tags mono">
+            <span>Python</span><span>FastAPI</span><span>Amazon Bedrock</span><span>Pinecone</span><span>Kafka</span><span>Kubernetes</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="job">
+        <div class="job-meta">
+          <span class="job-year serif">2021</span>
+          <span class="job-dates mono">MAR 2021 — JUL 2023</span>
+        </div>
+        <div class="job-body">
+          <h3 class="job-title">Software Engineer <span class="job-focus mono">ENTERPRISE PLATFORMS</span></h3>
+          <div class="job-org mono">DUCK CREEK TECHNOLOGIES</div>
+          <ul class="job-points">
+            <li>Developed Java, Spring Boot and Hibernate services for policy administration, billing and claims workflows on an enterprise P&amp;C insurance platform.</li>
+            <li>Designed REST APIs for quote, policy, billing and claims workflows, and integrated backend services with payment processors and third-party insurance systems.</li>
+            <li>Worked with PostgreSQL and MongoDB to store policy and transaction data, optimizing queries and indexes for high-volume application workflows.</li>
+            <li>Built asynchronous processing workflows using Apache Kafka to exchange policy and claims events between distributed backend services.</li>
+            <li>Helped break parts of a legacy Java application into independently deployable Spring Boot microservices, improving maintainability and release flexibility.</li>
+            <li>Investigated production issues using application logs, API traces and database queries, identifying root causes across distributed services and third-party integrations.</li>
+          </ul>
+          <div class="job-tags mono">
+            <span>Java 17</span><span>Spring Boot</span><span>Hibernate</span><span>PostgreSQL</span><span>MongoDB</span><span>Kafka</span>
+          </div>
+        </div>
+      </article>
     </div>
-
-    <article class="job">
-      <div class="job-meta">
-        <span class="job-year serif">2025</span>
-        <span class="job-dates mono">APR 2025 — PRESENT</span>
-      </div>
-      <div class="job-body">
-        <h3 class="job-title">Software Development Engineer <span class="job-focus mono">PAYMENTS / GENAI</span></h3>
-        <div class="job-org mono">PAYPAL · CHICAGO</div>
-        <ul class="job-points">
-          <li>Design Java 17 and Spring Boot microservices for payment tokenization, authorization and merchant onboarding on AWS, improving service latency 30% at transaction scale.</li>
-          <li>Built RAG pipelines with LangChain, Amazon Bedrock and Pinecone powering fraud investigation, cutting manual review 25%, plus LLM orchestration with function calling that automates dispute resolution.</li>
-          <li>Implemented Kafka and Apache Flink event pipelines over live transaction streams, reducing fraud detection latency 35%.</li>
-          <li>Own the platform end to end: Terraform, Kubernetes and Helm provisioning, OAuth2/JWT/RBAC API security, and OpenTelemetry-Prometheus-Grafana observability that cut MTTR 30%.</li>
-        </ul>
-        <div class="job-tags mono">
-          <span>Java 17</span><span>Spring Boot</span><span>AWS</span><span>Kafka + Flink</span><span>LangChain</span><span>Bedrock</span>
-        </div>
-      </div>
-    </article>
-
-    <article class="job">
-      <div class="job-meta">
-        <span class="job-year serif">2020</span>
-        <span class="job-dates mono">MAR 2020 — JUL 2023</span>
-      </div>
-      <div class="job-body">
-        <h3 class="job-title">Software Engineer <span class="job-focus mono">DISTRIBUTED SYSTEMS</span></h3>
-        <div class="job-org mono">DUCK CREEK TECHNOLOGIES</div>
-        <ul class="job-points">
-          <li>Built Java, Spring Boot and Hibernate microservices behind policy administration, billing, claims and rating for enterprise P&amp;C insurance platforms.</li>
-          <li>Migrated legacy Java monoliths into Spring Boot services on AWS, cutting deployment cycles 40%, and shipped React policyholder portals with real-time policy, billing and claims visibility.</li>
-          <li>Designed secure ACORD-standard REST APIs integrating payment processors, agent portals and third-party insurance systems.</li>
-          <li>Tuned PostgreSQL and MongoDB with schema redesign and indexing for 45% faster reporting, and ran Jenkins-Docker-Kubernetes CI/CD for the team's releases.</li>
-        </ul>
-        <div class="job-tags mono">
-          <span>Java</span><span>Spring Boot</span><span>Hibernate</span><span>React</span><span>PostgreSQL</span><span>Kubernetes</span>
-        </div>
-      </div>
-    </article>
   </section>
 
-  <!-- ══════════ PROJECTS (horizontal) ══════════ -->
+  <!-- ══════════ PROJECTS ══════════ -->
   <section class="projects section" id="projects" data-sector="05 — ARTIFACTS">
-    <div class="projects-pin" id="projectsPin">
-      <div class="section-head projects-head">
-        <span class="section-index mono">02</span>
+    <div class="sheet">
+      <div class="section-head">
+        <span class="section-index mono">03</span>
         <h2 class="section-title" data-split>Projects</h2>
         <span class="section-note mono">SHIPPED. LIVE. NOT SLIDEWARE.</span>
       </div>
-      <div class="projects-track" id="projectsTrack">
 
-        <article class="card" data-tilt>
-          <div class="card-index mono">01</div>
+      <div class="projects-grid">
+
+        <article class="card">
+          <div class="card-top">
+            <div class="card-index mono">01</div>
+            <div class="card-status mono"><span class="dot"></span> LIVE</div>
+          </div>
           <h3 class="card-title">TrailMail</h3>
-          <div class="card-status mono"><span class="dot"></span> LIVE — TRAILMAILS.COM</div>
           <p class="card-desc">
-            A Chrome extension that predicts work emails from public company patterns and sends
-            personalized outreach through Gmail. Entirely client side, send only OAuth scope,
-            open and click tracking, zero servers holding your data.
+            A Chrome extension that predicts work emails from public company patterns and
+            sends personalized outreach through Gmail. Entirely client side, send-only OAuth
+            scope, open and click tracking, no server ever holding your data. Published on
+            the Chrome Web Store.
           </p>
           <div class="card-tags mono">
-            <span>JavaScript</span><span>Gmail API</span><span>Hunter.io</span><span>Chrome MV3</span>
+            <span>JavaScript</span><span>Gmail API</span><span>Hunter.io</span><span>Chrome MV3</span><span>OAuth2</span>
           </div>
-          <a class="card-link mono" href="https://trailmails.com" target="_blank" rel="noopener" data-magnetic>VISIT ↗</a>
+          <div class="card-links">
+            <a class="card-link mono" href="https://trailmails.com" target="_blank" rel="noopener" data-magnetic>TRAILMAILS.COM ↗</a>
+            <a class="card-link card-link-sub mono" href="https://chromewebstore.google.com/detail/bgmdpfdhgaignpljdpkmneeggbiolkce" target="_blank" rel="noopener">WEB STORE ↗</a>
+            <a class="card-link card-link-sub mono" href="https://github.com/mananshah2254/trailmail" target="_blank" rel="noopener">CODE ↗</a>
+          </div>
         </article>
 
-        <article class="card" data-tilt>
-          <div class="card-index mono">02</div>
-          <h3 class="card-title">GitPixelPush</h3>
-          <div class="card-status mono"><span class="dot"></span> LIVE — GITPIXELPUSH.COM</div>
+        <article class="card">
+          <div class="card-top">
+            <div class="card-index mono">02</div>
+            <div class="card-status mono"><span class="dot"></span> LIVE</div>
+          </div>
+          <h3 class="card-title">DialDo</h3>
           <p class="card-desc">
-            Draw pixel art on your GitHub contribution graph. A browser side engine that writes
-            back dated commits through the Git Data API, no clone, no server, your token never
-            leaves the page.
+            Give your Mac a phone number. A local-first voice agent: you call a Twilio number,
+            a cloud gateway routes the intent to an Electron desktop client, and it finds files,
+            summarizes PDFs, writes documents and sends email. Plugin-based tool registry, SQLite
+            task history, signed and notarized for macOS.
+          </p>
+          <div class="card-tags mono">
+            <span>TypeScript</span><span>Electron</span><span>Twilio</span><span>LLM APIs</span><span>SQLite</span>
+          </div>
+          <div class="card-links">
+            <a class="card-link mono" href="https://dialdo.com" target="_blank" rel="noopener" data-magnetic>DIALDO.COM ↗</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <div class="card-index mono">03</div>
+            <div class="card-status mono"><span class="dot"></span> LIVE</div>
+          </div>
+          <h3 class="card-title">GitPixelPush</h3>
+          <p class="card-desc">
+            Draw pixel art on your GitHub contribution graph. A browser-side engine that writes
+            back dated commits through the Git Data API: no clone, no server, and your token
+            never leaves the page. Served from a Cloudflare Worker that also handles the OAuth
+            exchange.
           </p>
           <div class="card-tags mono">
             <span>Git Data API</span><span>Cloudflare Workers</span><span>OAuth</span><span>Vanilla JS</span>
           </div>
-          <a class="card-link mono" href="https://gitpixelpush.com" target="_blank" rel="noopener" data-magnetic>VISIT ↗</a>
+          <div class="card-links">
+            <a class="card-link mono" href="https://gitpixelpush.com" target="_blank" rel="noopener" data-magnetic>GITPIXELPUSH.COM ↗</a>
+            <a class="card-link card-link-sub mono" href="https://github.com/mananshah2254/gitpixelpush" target="_blank" rel="noopener">CODE ↗</a>
+          </div>
         </article>
 
-        <article class="card" data-tilt>
-          <div class="card-index mono">03</div>
-          <h3 class="card-title">Agentic Voice System</h3>
-          <div class="card-status mono"><span class="dot dot-amber"></span> ENTERPRISE POC</div>
+        <article class="card">
+          <div class="card-top">
+            <div class="card-index mono">04</div>
+            <div class="card-status mono"><span class="dot dot-green"></span> OPEN SOURCE</div>
+          </div>
+          <h3 class="card-title">OutreachOS</h3>
           <p class="card-desc">
-            End to end voice agent orchestration for an enterprise prospect. LLM reasoning,
-            webhooks, CRM style data handoffs, and conversation logic that survives multi step
-            tasks without losing the plot.
+            A multi-step LinkedIn cadence engine in the browser: visit, connect, message and
+            follow, sequenced with delays and daily caps. Runs against the Voyager API rather
+            than clicking the DOM, which is the only approach that survives a redesign. 158
+            unit tests behind the scheduler.
           </p>
           <div class="card-tags mono">
-            <span>Bland AI</span><span>n8n</span><span>LLM APIs</span><span>Webhooks</span>
+            <span>Chrome MV3</span><span>Voyager API</span><span>Service Workers</span><span>IndexedDB</span>
+          </div>
+          <div class="card-links">
+            <a class="card-link mono" href="https://github.com/mananshah2254/OutreachOS" target="_blank" rel="noopener" data-magnetic>SOURCE ON GITHUB ↗</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <div class="card-index mono">05</div>
+            <div class="card-status mono"><span class="dot dot-amber"></span> IN DEVELOPMENT</div>
+          </div>
+          <h3 class="card-title">Relay</h3>
+          <p class="card-desc">
+            A two-lane outreach engine: emails go out up front while the LinkedIn crawl runs in
+            the background, so the slow lane never blocks the fast one. Includes a template studio
+            with attachments and live preview, plus a credit strategy that spends per company
+            instead of per person. 773 tests.
+          </p>
+          <div class="card-tags mono">
+            <span>Chrome MV3</span><span>Gmail API</span><span>Job Queues</span><span>Vitest</span>
+          </div>
+          <span class="card-link card-link-static mono">PRIVATE BETA</span>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <div class="card-index mono">06</div>
+            <div class="card-status mono"><span class="dot dot-amber"></span> ENTERPRISE POC</div>
+          </div>
+          <h3 class="card-title">Agentic Voice System</h3>
+          <p class="card-desc">
+            End-to-end voice agent orchestration built for an enterprise prospect. LLM reasoning,
+            webhooks and CRM-style data handoffs, with conversation logic that survives multi-step
+            tasks without losing the plot. The repeatable agentic pattern underneath it became DialDo.
+          </p>
+          <div class="card-tags mono">
+            <span>Python</span><span>Bland AI</span><span>n8n</span><span>Webhooks</span><span>LLM APIs</span>
           </div>
           <span class="card-link card-link-static mono">CASE STUDY ON REQUEST</span>
         </article>
 
-        <article class="card" data-tilt>
-          <div class="card-index mono">04</div>
-          <h3 class="card-title">DialDo</h3>
-          <div class="card-status mono"><span class="dot"></span> LIVE — DIALDO.COM</div>
+        <article class="card">
+          <div class="card-top">
+            <div class="card-index mono">07</div>
+            <div class="card-status mono"><span class="dot dot-amber"></span> INTERNAL TOOL</div>
+          </div>
+          <h3 class="card-title">Email Research Engine</h3>
           <p class="card-desc">
-            Give your Mac a phone number. A local-first voice agent that answers real calls,
-            finds files, summarizes PDFs, writes documents and sends email, guarded by caller
-            allowlists, a spoken PIN and per-action confirmation.
+            The inference backend behind TrailMail. A Flask service that resolves a company name
+            to its real domain, mines public pages and search snippets for example addresses,
+            then infers the organization's address pattern and scores its own confidence. One
+            paid lookup per company, never per person.
           </p>
           <div class="card-tags mono">
-            <span>Voice Agents</span><span>Twilio</span><span>OpenAI</span><span>Node</span>
+            <span>Python</span><span>Flask</span><span>BeautifulSoup</span><span>SSE</span><span>Hunter.io</span>
           </div>
-          <a class="card-link mono" href="https://dialdo.com" target="_blank" rel="noopener" data-magnetic>VISIT ↗</a>
+          <span class="card-link card-link-static mono">POWERS TRAILMAIL</span>
         </article>
 
-        <article class="card card-cta" data-tilt>
-          <div class="card-index mono">05</div>
+        <article class="card">
+          <div class="card-top">
+            <div class="card-index mono">08</div>
+            <div class="card-status mono"><span class="dot dot-amber"></span> RESEARCH BUILD</div>
+          </div>
+          <h3 class="card-title">ConnectPilot</h3>
+          <p class="card-desc">
+            A LinkedIn connection automation extension, and mostly an exercise in reverse
+            engineering: DOM clicking proved to be a dead end, so I built request-capture
+            tooling, found the real invitation endpoint, and drove it directly with the
+            correct payload shape.
+          </p>
+          <div class="card-tags mono">
+            <span>Chrome MV3</span><span>webRequest</span><span>Voyager API</span>
+          </div>
+          <span class="card-link card-link-static mono">PRIVATE REPO</span>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <div class="card-index mono">09</div>
+            <div class="card-status mono"><span class="dot"></span> YOU ARE HERE</div>
+          </div>
+          <h3 class="card-title">This Portfolio</h3>
+          <p class="card-desc">
+            The world you are flying over. A procedural dusk coastline in Three.js with real
+            planar water reflections, merged city geometry, a lathe-turned aircraft and a
+            generative WebAudio score. Zero downloaded assets: every texture is drawn to a
+            canvas at boot.
+          </p>
+          <div class="card-tags mono">
+            <span>Three.js</span><span>GLSL</span><span>GSAP</span><span>WebAudio</span>
+          </div>
+          <span class="card-link card-link-static mono">LOOK DOWN ↓</span>
+        </article>
+
+        <article class="card card-cta">
+          <div class="card-top">
+            <div class="card-index mono">10</div>
+          </div>
           <h3 class="card-title">Your idea<br/>here</h3>
           <p class="card-desc">
             The next one gets built at your company. I prototype fast and ship things
@@ -275,84 +414,102 @@
 
   <!-- ══════════ SKILLS ══════════ -->
   <section class="skills section" id="skills" data-sector="06 — STACK">
-    <div class="section-head">
-      <span class="section-index mono">03</span>
-      <h2 class="section-title" data-split>Stack</h2>
-      <span class="section-note mono">TOOLS ARE TEMPORARY. SYSTEMS THINKING ISN’T.</span>
-    </div>
+    <div class="sheet">
+      <div class="section-head">
+        <span class="section-index mono">04</span>
+        <h2 class="section-title" data-split>Stack</h2>
+        <span class="section-note mono">TOOLS ARE TEMPORARY. SYSTEMS THINKING ISN’T.</span>
+      </div>
 
-    <div class="marquee" data-speed="1">
-      <div class="marquee-inner mono">
-        RAG · LANGCHAIN · AMAZON BEDROCK · GPT-4 · LLM ORCHESTRATION · AI AGENTS · FUNCTION CALLING · EMBEDDINGS · SEMANTIC SEARCH · PINECONE ·&nbsp;
+      <div class="marquee-wrap">
+        <div class="marquee" data-speed="1">
+          <div class="marquee-inner mono">
+            LLMS · RAG · PROMPT ENGINEERING · EMBEDDINGS · SEMANTIC SEARCH · AI AGENTS · TOOL CALLING · MCP · LLM EVALUATION ·&nbsp;
+          </div>
+        </div>
+        <div class="marquee" data-speed="-1">
+          <div class="marquee-inner mono">
+            PYTHON · JAVA 17 · TYPESCRIPT · SQL · FASTAPI · SPRING BOOT · REST APIS · MICROSERVICES · APACHE KAFKA ·&nbsp;
+          </div>
+        </div>
+        <div class="marquee" data-speed="0.7">
+          <div class="marquee-inner mono">
+            AMAZON BEDROCK · PINECONE · LANGCHAIN · LANGGRAPH · AWS EKS · LAMBDA · DOCKER · KUBERNETES · GITHUB ACTIONS ·&nbsp;
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="marquee" data-speed="-1">
-      <div class="marquee-inner mono">
-        JAVA 17 · PYTHON · TYPESCRIPT · SQL · SPRING BOOT · SPRING CLOUD · KAFKA · FLINK · GRAPHQL · GRPC · MICROSERVICES · REDIS ·&nbsp;
-      </div>
-    </div>
-    <div class="marquee" data-speed="0.7">
-      <div class="marquee-inner mono">
-        AWS EKS · LAMBDA · AURORA · DYNAMODB · TERRAFORM · DOCKER · KUBERNETES · HELM · GITHUB ACTIONS · PROMETHEUS · GRAFANA ·&nbsp;
-      </div>
-    </div>
 
-    <div class="skills-grid">
-      <div class="skill-block">
-        <h4 class="skill-block-title mono">GENAI / LLM</h4>
-        <p>RAG, LangChain, Amazon Bedrock, GPT-4, LLM orchestration, AI agents, function calling, prompt engineering, LLM evaluation, embeddings and semantic search over Pinecone and ChromaDB.</p>
-      </div>
-      <div class="skill-block">
-        <h4 class="skill-block-title mono">BACKEND / DISTRIBUTED</h4>
-        <p>Java 17, Python, Spring Boot, Spring Cloud, Hibernate, REST, GraphQL, gRPC, Kafka and Flink event-driven pipelines, microservices, fault tolerance at transaction scale.</p>
-      </div>
-      <div class="skill-block">
-        <h4 class="skill-block-title mono">CLOUD / PLATFORM</h4>
-        <p>AWS (EKS, Lambda, API Gateway, Aurora, DynamoDB, SQS/SNS, CloudWatch), Terraform, Docker, Kubernetes, Helm, Jenkins, GitHub Actions, infrastructure as code.</p>
-      </div>
-      <div class="skill-block">
-        <h4 class="skill-block-title mono">RELIABILITY / SECURITY</h4>
-        <p>OpenTelemetry, Prometheus, Grafana, Datadog, OAuth2, JWT, RBAC, secure API design, PostgreSQL-Redis-MongoDB query optimization, JUnit, Mockito, Testcontainers.</p>
+      <div class="skills-grid">
+        <div class="skill-block">
+          <h4 class="skill-block-title mono">PROGRAMMING LANGUAGES</h4>
+          <p>Python, Java 17, TypeScript, JavaScript, SQL.</p>
+        </div>
+        <div class="skill-block">
+          <h4 class="skill-block-title mono">GENERATIVE AI &amp; LLMS</h4>
+          <p>LLMs, RAG, prompt engineering, embeddings, semantic search, AI agents, tool calling, MCP.</p>
+        </div>
+        <div class="skill-block">
+          <h4 class="skill-block-title mono">AI FRAMEWORKS &amp; PLATFORMS</h4>
+          <p>LangChain, LangGraph, Amazon Bedrock, OpenAI API, Anthropic Claude, Hugging Face.</p>
+        </div>
+        <div class="skill-block">
+          <h4 class="skill-block-title mono">DATABASES &amp; VECTOR SEARCH</h4>
+          <p>Pinecone, ChromaDB, PostgreSQL, MongoDB, Redis.</p>
+        </div>
+        <div class="skill-block">
+          <h4 class="skill-block-title mono">BACKEND &amp; APIS</h4>
+          <p>FastAPI, Spring Boot, REST APIs, microservices, Apache Kafka.</p>
+        </div>
+        <div class="skill-block">
+          <h4 class="skill-block-title mono">CLOUD &amp; MLOPS</h4>
+          <p>AWS (EC2, S3, RDS, EKS, Lambda, CloudWatch), Docker, Kubernetes, GitHub Actions, CI/CD.</p>
+        </div>
+        <div class="skill-block">
+          <h4 class="skill-block-title mono">TOOLS &amp; PRACTICES</h4>
+          <p>Git, Postman, JIRA, Agile Scrum, system design, LLM evaluation.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ══════════ EDUCATION ══════════ -->
   <section class="edu section" id="edu" data-sector="07 — TRAINING">
-    <div class="section-head">
-      <span class="section-index mono">04</span>
-      <h2 class="section-title" data-split>Education</h2>
-      <span class="section-note mono">THREE DEGREES OF PREPARATION</span>
-    </div>
-    <div class="edu-rows">
-      <div class="edu-row">
-        <span class="edu-year serif">2025</span>
-        <span class="edu-school">Illinois Institute of Technology</span>
-        <span class="edu-degree">MS, Computer Science — Chicago</span>
+    <div class="sheet">
+      <div class="section-head">
+        <span class="section-index mono">05</span>
+        <h2 class="section-title" data-split>Education</h2>
+        <span class="section-note mono">THREE DEGREES OF PREPARATION</span>
       </div>
-      <div class="edu-row">
-        <span class="edu-year serif">2022</span>
-        <span class="edu-school">K J Somaiya Institute of Management</span>
-        <span class="edu-degree">Master of Computer Applications — Mumbai</span>
+      <div class="edu-rows">
+        <div class="edu-row">
+          <span class="edu-year serif">2025</span>
+          <span class="edu-school">Illinois Institute of Technology</span>
+          <span class="edu-degree">MS, Computer Science · Chicago, IL · Aug 2023 — May 2025</span>
+        </div>
+        <div class="edu-row">
+          <span class="edu-year serif">2022</span>
+          <span class="edu-school">K J Somaiya Institute of Management</span>
+          <span class="edu-degree">Master of Computer Applications · Mumbai · May 2020 — Jul 2022</span>
+        </div>
+        <div class="edu-row">
+          <span class="edu-year serif">2020</span>
+          <span class="edu-school">K J Somaiya College of Science and Commerce</span>
+          <span class="edu-degree">BS, Information Technology · Mumbai · Jun 2017 — May 2020</span>
+        </div>
       </div>
-      <div class="edu-row">
-        <span class="edu-year serif">2020</span>
-        <span class="edu-school">K J Somaiya Institute of Management</span>
-        <span class="edu-degree">BS, Information Technology — Mumbai</span>
-      </div>
-    </div>
-    <div class="edu-achievements">
-      <div class="achievement" data-tilt>
-        <span class="achievement-num serif">1st</span>
-        <p><strong>Hackathon Winner.</strong> 1st place among 200+ teams, Duck Creek Hatchathon 2022.</p>
-      </div>
-      <div class="achievement" data-tilt>
-        <span class="achievement-num serif">50+</span>
-        <p><strong>Outstanding Academic Coach.</strong> Illinois Tech, 50+ students mentored.</p>
-      </div>
-      <div class="achievement" data-tilt>
-        <span class="achievement-num serif">AZ</span>
-        <p><strong>Certified.</strong> Microsoft Azure Fundamentals · SQL for Data Science.</p>
+      <div class="edu-achievements">
+        <div class="achievement">
+          <span class="achievement-num serif">1st</span>
+          <p><strong>Hackathon winner.</strong> First place among 200+ teams, Duck Creek Hatchathon 2022.</p>
+        </div>
+        <div class="achievement">
+          <span class="achievement-num serif">50+</span>
+          <p><strong>Outstanding academic coach.</strong> Illinois Tech, 50+ students mentored.</p>
+        </div>
+        <div class="achievement">
+          <span class="achievement-num serif">AZ</span>
+          <p><strong>Certified.</strong> Microsoft Azure Fundamentals and SQL for Data Science.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -362,16 +519,17 @@
     <div class="contact-inner">
       <div class="contact-kicker mono reveal-line">THE PART WHERE YOU EMAIL ME</div>
       <h2 class="contact-title" data-split-words>Let’s build <em>something great.</em></h2>
-      <a class="contact-email mono" href="mailto:mananshah03691@gmail.com" data-magnetic data-scramble>
+      <a class="contact-email mono" href="mailto:mananshah03691@gmail.com" data-magnetic>
         mananshah03691@gmail.com
       </a>
       <div class="contact-links">
         <a class="btn btn-ghost" href="https://www.linkedin.com/in/mananshah2254" target="_blank" rel="noopener" data-magnetic><span>LINKEDIN ↗</span></a>
         <a class="btn btn-ghost" href="https://github.com/mananshah2254" target="_blank" rel="noopener" data-magnetic><span>GITHUB ↗</span></a>
+        <a class="btn btn-ghost" href="assets/Manan_Shah_Resume.pdf" target="_blank" rel="noopener" data-magnetic><span>RÉSUMÉ ↗</span></a>
         <a class="btn btn-primary" href="mailto:mananshah03691@gmail.com" data-magnetic><span>EMAIL ME</span></a>
       </div>
       <div class="contact-meta mono">
-        SAN FRANCISCO, CA · OPEN TO RELOCATE · SDE @ PAYPAL · RESPONDS FAST
+        SAN FRANCISCO, CA · OPEN TO RELOCATE · AI ENGINEER @ PAYPAL · RESPONDS FAST
       </div>
     </div>
   </section>

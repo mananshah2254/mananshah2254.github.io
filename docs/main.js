@@ -24,6 +24,7 @@ if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
   throw new Error("Animation libraries unavailable; rendering static portfolio.");
 }
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.config({ ignoreMobileResize: true });
 window.__4D_BOOTED = true;
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -44,15 +45,41 @@ const state = {
 };
 
 /* ════════════════════════════════════════════
-   1 · FLIGHT AUDIO (WebAudio, no files)
+   1 · FLIGHT SCORE (generative WebAudio, no files)
+
+   Rewritten 2026-10. The old bed was a sawtooth engine drone
+   plus a static A-major pad, which sat on one chord forever and
+   fought the page. This is an actual piece of music: a slow
+   four-chord dusk progression in A minor (Am9 - Fmaj9 - Cmaj9 -
+   Gmaj6), a soft bell voice that arpeggiates the chord currently
+   sounding, a filtered air bed instead of an engine, and a sub
+   that breathes. Everything is scheduled ahead of the clock so
+   it never stutters when the main thread is busy with Three.js.
    ════════════════════════════════════════════ */
+
+/* scale degrees in Hz, A minor. Each chord is [root, ...voicing] */
+const PROGRESSION = [
+  { pad: [110.00, 164.81, 196.00, 261.63], bells: [440.00, 523.25, 659.25, 783.99, 880.00] }, // Am9
+  { pad: [87.31, 174.61, 220.00, 261.63], bells: [349.23, 440.00, 523.25, 698.46, 880.00] },  // Fmaj9
+  { pad: [130.81, 196.00, 246.94, 329.63], bells: [392.00, 493.88, 587.33, 659.25, 783.99] }, // Cmaj9
+  { pad: [98.00, 146.83, 196.00, 246.94], bells: [392.00, 493.88, 587.33, 739.99, 880.00] },  // Gmaj6
+];
+const BAR = 7.4;          // seconds per chord
+const BELL_GRID = 0.925;  // eighth-note grid for the bell voice
+
 class AudioEngine {
   constructor() {
     this.ctx = null;
     this.on = false;
     this.master = null;
     this.lastBell = 0;
+    this.chordIndex = 0;
+    this.nextChordAt = 0;
+    this.nextBellAt = 0;
+    this.bellStep = 0;
+    this.timer = null;
   }
+
   init() {
     if (this.ctx) return;
     const AC = window.AudioContext || window.webkitAudioContext;
@@ -60,127 +87,221 @@ class AudioEngine {
     this.ctx = new AC();
     const ctx = this.ctx;
 
+    // ── master bus: gentle compression, then a shelf to take the edge off
     this.master = ctx.createGain();
     this.master.gain.value = 0;
     const comp = ctx.createDynamicsCompressor();
-    comp.threshold.value = -26;
-    comp.ratio.value = 5;
-    this.master.connect(comp).connect(ctx.destination);
+    comp.threshold.value = -24;
+    comp.ratio.value = 4;
+    comp.attack.value = 0.02;
+    comp.release.value = 0.3;
+    const tilt = ctx.createBiquadFilter();
+    tilt.type = "highshelf";
+    tilt.frequency.value = 3200;
+    tilt.gain.value = -5;
+    this.master.connect(comp).connect(tilt).connect(ctx.destination);
 
-    const noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
+    // ── a long ping-pong-ish delay the bells sing into
+    this.delay = ctx.createDelay(2);
+    this.delay.delayTime.value = BELL_GRID * 0.75;
+    const fb = ctx.createGain();
+    fb.gain.value = 0.42;
+    const damp = ctx.createBiquadFilter();
+    damp.type = "lowpass";
+    damp.frequency.value = 2200;
+    const delayOut = ctx.createGain();
+    delayOut.gain.value = 0.38;
+    this.delay.connect(damp).connect(fb).connect(this.delay);
+    this.delay.connect(delayOut).connect(this.master);
+
+    // ── air bed: band-passed noise that answers the throttle. This is the
+    //    airflow over the airframe, not an engine. No sawtooth anywhere.
+    const noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 3, ctx.sampleRate);
     const nd = noiseBuf.getChannelData(0);
-    for (let i = 0; i < nd.length; i++) nd[i] = (Math.random() * 2 - 1) * 0.5;
-    const wind = ctx.createBufferSource();
-    wind.buffer = noiseBuf;
-    wind.loop = true;
-    this.windFilter = ctx.createBiquadFilter();
-    this.windFilter.type = "bandpass";
-    this.windFilter.frequency.value = 550;
-    this.windFilter.Q.value = 0.45;
-    this.windGain = ctx.createGain();
-    this.windGain.gain.value = 0.03;
-    wind.connect(this.windFilter).connect(this.windGain).connect(this.master);
-    wind.start();
-    const windLfo = ctx.createOscillator();
-    windLfo.frequency.value = 0.06;
-    const windLfoGain = ctx.createGain();
-    windLfoGain.gain.value = 240;
-    windLfo.connect(windLfoGain).connect(this.windFilter.frequency);
-    windLfo.start();
-
-    this.engineFilter = ctx.createBiquadFilter();
-    this.engineFilter.type = "lowpass";
-    this.engineFilter.frequency.value = 190;
-    this.engineFilter.Q.value = 1.1;
-    this.engineGain = ctx.createGain();
-    this.engineGain.gain.value = 0.045;
-    this.engineFilter.connect(this.engineGain).connect(this.master);
-    this.engineOscs = [];
-    for (const [freq, det] of [[42, 0], [63.5, 7]]) {
-      const o = ctx.createOscillator();
-      o.type = "sawtooth";
-      o.frequency.value = freq;
-      o.detune.value = det;
-      const g = ctx.createGain();
-      g.gain.value = 0.5;
-      o.connect(g).connect(this.engineFilter);
-      o.start();
-      this.engineOscs.push(o);
+    let lp = 0;
+    for (let i = 0; i < nd.length; i++) {
+      // pink-ish: one-pole smoothed white, much softer than raw noise
+      lp = lp * 0.96 + (Math.random() * 2 - 1) * 0.04;
+      nd[i] = lp * 3.2;
     }
+    const air = ctx.createBufferSource();
+    air.buffer = noiseBuf;
+    air.loop = true;
+    this.airFilter = ctx.createBiquadFilter();
+    this.airFilter.type = "bandpass";
+    this.airFilter.frequency.value = 420;
+    this.airFilter.Q.value = 0.6;
+    this.airGain = ctx.createGain();
+    this.airGain.gain.value = 0.055;
+    air.connect(this.airFilter).connect(this.airGain).connect(this.master);
+    air.start();
+    const airLfo = ctx.createOscillator();
+    airLfo.frequency.value = 0.045;
+    const airLfoGain = ctx.createGain();
+    airLfoGain.gain.value = 190;
+    airLfo.connect(airLfoGain).connect(this.airFilter.frequency);
+    airLfo.start();
 
-    const padFilter = ctx.createBiquadFilter();
-    padFilter.type = "lowpass";
-    padFilter.frequency.value = 760;
-    const padGain = ctx.createGain();
-    padGain.gain.value = 0.05;
-    padFilter.connect(padGain).connect(this.master);
-    [[110, 0.13], [138.59, 0.11], [164.81, 0.17], [220, 0.09]].forEach(([freq, rate], i) => {
+    // ── pad bus: four detuned voices, retuned on every chord change
+    this.padFilter = ctx.createBiquadFilter();
+    this.padFilter.type = "lowpass";
+    this.padFilter.frequency.value = 900;
+    this.padFilter.Q.value = 0.7;
+    this.padBus = ctx.createGain();
+    this.padBus.gain.value = 0.09;
+    this.padFilter.connect(this.padBus).connect(this.master);
+    // a little of the pad into the delay for depth
+    const padSend = ctx.createGain();
+    padSend.gain.value = 0.12;
+    this.padBus.connect(padSend).connect(this.delay);
+
+    this.padVoices = PROGRESSION[0].pad.map((freq, i) => {
       const o = ctx.createOscillator();
-      o.type = "triangle";
+      o.type = i === 0 ? "sine" : "triangle";
       o.frequency.value = freq;
       const g = ctx.createGain();
-      g.gain.value = i === 3 ? 0.35 : 0.55;
+      g.gain.value = i === 0 ? 0.5 : 0.3;
+      // slow independent drift so the chord never sounds static
       const lfo = ctx.createOscillator();
-      lfo.frequency.value = rate;
+      lfo.frequency.value = 0.07 + i * 0.031;
       const lfoGain = ctx.createGain();
-      lfoGain.gain.value = 5.5;
+      lfoGain.gain.value = 4 + i;
       lfo.connect(lfoGain).connect(o.detune);
-      o.connect(g).connect(padFilter);
+      o.connect(g).connect(this.padFilter);
       o.start();
       lfo.start();
+      return { osc: o, gain: g };
     });
 
-    this.delay = ctx.createDelay(2);
-    this.delay.delayTime.value = 0.46;
-    const fb = ctx.createGain();
-    fb.gain.value = 0.34;
-    const delayOut = ctx.createGain();
-    delayOut.gain.value = 0.5;
-    this.delay.connect(fb).connect(this.delay);
-    this.delay.connect(delayOut).connect(this.master);
+    // ── sub: one octave under the root, breathing
+    this.sub = ctx.createOscillator();
+    this.sub.type = "sine";
+    this.sub.frequency.value = PROGRESSION[0].pad[0] / 2;
+    this.subGain = ctx.createGain();
+    this.subGain.gain.value = 0.085;
+    const subLfo = ctx.createOscillator();
+    subLfo.frequency.value = 0.09;
+    const subLfoGain = ctx.createGain();
+    subLfoGain.gain.value = 0.03;
+    subLfo.connect(subLfoGain).connect(this.subGain.gain);
+    this.sub.connect(this.subGain).connect(this.master);
+    this.sub.start();
+    subLfo.start();
+
+    const now = ctx.currentTime;
+    this.nextChordAt = now + 0.1;
+    this.nextBellAt = now + BAR * 0.5;
   }
+
+  /* retune the pad + sub to a chord, glided rather than jumped */
+  setChord(i, when) {
+    const chord = PROGRESSION[i % PROGRESSION.length];
+    this.padVoices.forEach((v, n) => {
+      const f = chord.pad[n % chord.pad.length];
+      v.osc.frequency.setTargetAtTime(f, when, 1.1);
+    });
+    this.sub.frequency.setTargetAtTime(chord.pad[0] / 2, when, 1.4);
+  }
+
+  /* one struck bell: a sine with a fast attack and a long tail, plus a
+     quiet octave partial so it reads as a plucked mallet, not a beep */
+  strike(freq, when, vel = 1) {
+    const ctx = this.ctx;
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, when);
+    g.gain.exponentialRampToValueAtTime(0.055 * vel, when + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, when + 2.4);
+    g.connect(this.master);
+    g.connect(this.delay);
+
+    const o = ctx.createOscillator();
+    o.type = "sine";
+    o.frequency.value = freq;
+    o.connect(g);
+    o.start(when);
+    o.stop(when + 2.5);
+
+    const p = ctx.createOscillator();
+    p.type = "sine";
+    p.frequency.value = freq * 2.004;
+    const pg = ctx.createGain();
+    pg.gain.value = 0.22;
+    p.connect(pg).connect(g);
+    p.start(when);
+    p.stop(when + 1.2);
+  }
+
+  /* look ahead ~250ms and schedule whatever falls in the window. Running
+     off a timer rather than the render loop keeps the music steady even
+     when a frame takes 40ms to draw a city. */
+  schedule() {
+    if (!this.ctx || !this.on) return;
+    const horizon = this.ctx.currentTime + 0.25;
+
+    while (this.nextChordAt < horizon) {
+      this.setChord(this.chordIndex, this.nextChordAt);
+      // mark the chord change with the root an octave up, very soft
+      const chord = PROGRESSION[this.chordIndex % PROGRESSION.length];
+      this.strike(chord.pad[1] * 2, this.nextChordAt, 0.5);
+      this.chordIndex++;
+      this.nextChordAt += BAR;
+    }
+
+    while (this.nextBellAt < horizon) {
+      // sparse: only about a third of the grid positions sound, so it
+      // stays a texture and never becomes a melody competing with reading
+      if (Math.random() < 0.34) {
+        const chord = PROGRESSION[(this.chordIndex - 1 + PROGRESSION.length) % PROGRESSION.length];
+        const notes = chord.bells;
+        // walk the voicing rather than jumping randomly around it
+        this.bellStep += Math.random() < 0.5 ? 1 : -1;
+        const f = notes[((this.bellStep % notes.length) + notes.length) % notes.length];
+        this.strike(f, this.nextBellAt, 0.55 + Math.random() * 0.35);
+      }
+      this.nextBellAt += BELL_GRID;
+    }
+  }
+
+  /* section-change chime: still here, now tuned to the current chord so a
+     checkpoint lands in key instead of on a fixed scale */
   bell(step = 0) {
     if (!this.ctx || !this.on) return;
     const now = this.ctx.currentTime;
-    if (now - this.lastBell < 0.18) return;
+    if (now - this.lastBell < 0.2) return;
     this.lastBell = now;
-    const scale = [440, 493.88, 554.37, 659.25, 739.99, 880];
-    const freq = scale[Math.abs(step) % scale.length];
-    const o = this.ctx.createOscillator();
-    o.type = "sine";
-    o.frequency.value = freq;
-    const g = this.ctx.createGain();
-    g.gain.setValueAtTime(0.0001, now);
-    g.gain.exponentialRampToValueAtTime(0.05, now + 0.02);
-    g.gain.exponentialRampToValueAtTime(0.0001, now + 1.5);
-    o.connect(g);
-    g.connect(this.master);
-    g.connect(this.delay);
-    o.start(now);
-    o.stop(now + 1.6);
+    const chord = PROGRESSION[(this.chordIndex - 1 + PROGRESSION.length) % PROGRESSION.length];
+    const notes = chord.bells;
+    this.strike(notes[Math.abs(step) % notes.length], now + 0.01, 1.15);
   }
+
+  /* the scroll throttle opens the airflow and brightens the pad. The
+     music itself keeps its own tempo: scrolling changes the air, not the
+     beat, which is why fast scrolling no longer sounds like a siren. */
   setScrollEnergy(v) {
     if (!this.ctx || !this.on) return;
     const t = Math.min(Math.abs(v) * 3, 1);
     const now = this.ctx.currentTime;
-    this.engineFilter.frequency.setTargetAtTime(190 + t * 850, now, 0.2);
-    this.engineGain.gain.setTargetAtTime(0.045 + t * 0.05, now, 0.25);
-    this.engineOscs[0].frequency.setTargetAtTime(42 * (1 + t * 0.22), now, 0.3);
-    this.engineOscs[1].frequency.setTargetAtTime(63.5 * (1 + t * 0.22), now, 0.3);
-    this.windGain.gain.setTargetAtTime(0.03 + t * 0.045, now, 0.25);
+    this.airFilter.frequency.setTargetAtTime(420 + t * 720, now, 0.25);
+    this.airGain.gain.setTargetAtTime(0.055 + t * 0.05, now, 0.3);
+    this.padFilter.frequency.setTargetAtTime(900 + t * 900, now, 0.4);
   }
+
   async start() {
     this.init();
     if (!this.ctx) return;
     await this.ctx.resume();
     this.on = true;
     this.master.gain.cancelScheduledValues(this.ctx.currentTime);
-    this.master.gain.setTargetAtTime(0.85, this.ctx.currentTime, 1.2);
+    this.master.gain.setTargetAtTime(0.9, this.ctx.currentTime, 1.6);
+    if (!this.timer) this.timer = setInterval(() => this.schedule(), 120);
+    this.schedule();
   }
+
   stop() {
     if (!this.ctx) return;
     this.on = false;
-    this.master.gain.setTargetAtTime(0, this.ctx.currentTime, 0.4);
+    this.master.gain.setTargetAtTime(0, this.ctx.currentTime, 0.5);
+    if (this.timer) { clearInterval(this.timer); this.timer = null; }
   }
 }
 const audio = new AudioEngine();
@@ -1769,7 +1890,7 @@ function initScene() {
   ANISO = renderer.capabilities.getMaxAnisotropy();
   HIGH_END = !LOW_PERF && window.devicePixelRatio >= 2;
   // full native pixel density on capable machines: text-sharp 4K-class output
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, LOW_PERF ? 1.5 : 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, LOW_PERF ? 1.25 : 1.75));
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.26;
@@ -2503,8 +2624,29 @@ function initScene() {
    ════════════════════════════════════════════ */
 const clock = new THREE.Clock();
 let prevAlt = 22;
+const worldDimEl = document.getElementById("worldDim");
+
+/* Perf: once the world has receded behind the content sheets nobody can
+   see 60fps of it, so we render every other frame and park the planar
+   water reflection (by far the most expensive pass: it redraws the whole
+   scene from the mirror's point of view). A hidden tab renders nothing. */
+let frameNo = 0;
+let mirrorParked = false;
+function setMirrorParked(parked) {
+  if (!waterMirror || parked === mirrorParked) return;
+  mirrorParked = parked;
+  waterMirror.visible = !parked;
+  if (envWaterProxy) envWaterProxy.visible = parked;
+}
+
 function tick() {
   requestAnimationFrame(tick);
+  if (document.hidden) return;
+  frameNo++;
+  // dimmed behind content: half frame rate, no mirror pass
+  const dimmed = state.scroll > 0.19;
+  setMirrorParked(dimmed);
+  if (dimmed && frameNo % 2) return;
   if (!webglOK) return;
   const dt = Math.min(clock.getDelta(), 0.05);
   const t = clock.elapsedTime;
@@ -2694,12 +2836,15 @@ function tick() {
   // live world reflections on the hull: refresh the cube probe every third
   // frame, swapping the Reflector for a flat proxy during the render so it
   // doesn't re-render six extra times per update
-  if (planeCubeCam && ++cubeFrame % 3 === 0) {
+  // skipped entirely once the world is dimmed: six extra scene renders for
+  // reflections on a 32%-opacity aircraft is not a trade worth making
+  if (planeCubeCam && !mirrorParked && ++cubeFrame % 3 === 0) {
     ourPlane.visible = false;
     if (waterMirror) { waterMirror.visible = false; envWaterProxy.visible = true; }
     planeCubeCam.position.copy(ourPlane.position);
     planeCubeCam.update(renderer, scene);
-    if (waterMirror) { waterMirror.visible = true; envWaterProxy.visible = false; }
+    // restore only if the dim pass has not parked the mirror for us
+    if (waterMirror && !mirrorParked) { waterMirror.visible = true; envWaterProxy.visible = false; }
     ourPlane.visible = true;
   }
   // contact shadow: slides along the sun line, tightens as the plane drops
@@ -2745,7 +2890,13 @@ function tick() {
   audio.setScrollEnergy(state.scrollVel);
   state.scrollVel *= 0.92;
 
-  renderer.domElement.style.opacity = 1 - Math.min(state.scroll * 1.4, 0.18);
+  /* THE readability lever. The world is a spectacle in the hero and a
+     quiet texture below it: the canvas drops to 32% by the time the
+     first content sheet arrives, and `.world-dim` lays a scrim over
+     whatever is left. Text never composites over live sunlit water. */
+  const recede = Math.min(state.scroll / 0.16, 1);
+  renderer.domElement.style.opacity = String(1 - recede * 0.68);
+  if (worldDimEl) worldDimEl.style.opacity = String(recede * 0.82);
 
   if (composer) composer.render();
   else renderer.render(scene, camera);
@@ -2842,30 +2993,28 @@ function initScroll() {
     });
   });
 
-  if (window.innerWidth > 900) {
-    const track = document.getElementById("projectsTrack");
-    const pin = document.getElementById("projectsPin");
-    const getDist = () => track.scrollWidth - window.innerWidth + 120;
-    gsap.to(track, {
-      x: () => -getDist(),
-      ease: "none",
-      scrollTrigger: {
-        trigger: pin,
-        start: "top top",
-        end: () => "+=" + getDist(),
-        pin: true,
-        scrub: 1,
-        invalidateOnRefresh: true,
-      },
+  /* Projects used to be a pinned horizontal track. It hijacked the
+     scroll, cut cards off at the viewport edge and could not hold the
+     full project history. It is a plain responsive grid now; the cards
+     just stagger in as they arrive. */
+  gsap.utils.toArray(".projects-grid .card").forEach((el, i) => {
+    gsap.fromTo(el, { y: 34, opacity: 0 }, {
+      y: 0, opacity: 1, duration: 0.7, ease: "power3.out", delay: (i % 3) * 0.07,
+      scrollTrigger: { trigger: el, start: "top 92%" },
     });
-  }
+  });
 
   gsap.utils.toArray(".marquee").forEach((mq) => {
     const inner = mq.querySelector(".marquee-inner");
     inner.innerHTML = inner.innerHTML.repeat(4);
     const speed = parseFloat(mq.dataset.speed || "1");
-    gsap.to(inner, {
-      xPercent: -25 * Math.sign(speed) || -25,
+    // the copy is repeated 4x, so travelling one quarter of the strip is a
+    // seamless loop. A reversed row starts pre-shifted, otherwise it drags
+    // its text off one edge and leaves the other edge bare.
+    const from = speed < 0 ? -25 : 0;
+    const to = speed < 0 ? 0 : -25;
+    gsap.fromTo(inner, { xPercent: from }, {
+      xPercent: to,
       ease: "none",
       scrollTrigger: { trigger: mq, start: "top bottom", end: "bottom top", scrub: 1.5 * Math.abs(speed) },
     });
@@ -2874,10 +3023,10 @@ function initScroll() {
   // the flight has a story: each sector is a checkpoint with a log line
   const STORY = {
     "01 — TAKEOFF": "WHEELS UP OUT OF THE MARINA. EIGHT CHECKPOINTS TO LANDING.",
-    "02 — ABOUT": "FIRST FLYBY: THE PILOT. FOUR YEARS OF SYSTEMS BELOW.",
-    "03 — TELEMETRY": "INSTRUMENTS GREEN. THE NUMBERS HOLD UP.",
-    "04 — FLIGHT LOG": "LOW PASS OVER THE WORK. PAYPAL TO DUCK CREEK.",
-    "05 — ARTIFACTS": "CARGO CHECK: FOUR SHIPPED PRODUCTS, THREE LIVE DOMAINS.",
+    "02 — ABOUT": "FIRST FLYBY: THE PILOT. THREE YEARS OF SYSTEMS BELOW.",
+    "03 — TELEMETRY": "INSTRUMENTS GREEN. EVERY NUMBER IS CHECKABLE.",
+    "04 — FLIGHT LOG": "LOW PASS OVER THE WORK. PAYPAL AND DUCK CREEK.",
+    "05 — ARTIFACTS": "CARGO CHECK: NINE BUILDS, THREE LIVE DOMAINS.",
     "06 — STACK": "TOOLKIT INSPECTION AT CRUISING SPEED.",
     "07 — TRAINING": "OVER THE OLD TRAINING GROUNDS. THREE DEGREES DOWN THERE.",
     "08 — LANDING": "FINAL APPROACH. SEND THE EMAIL, BRING HER HOME.",
@@ -2947,30 +3096,12 @@ function splitWords(el) {
 }
 
 /* ════════════════════════════════════════════
-   7 · CURSOR, MAGNETIC, SCRAMBLE, TILT
+   7 · MAGNETIC + TILT
    ════════════════════════════════════════════ */
-function initCursor() {
-  if (isTouch || prefersReducedMotion) return;
-  const cursor = document.getElementById("cursor");
-  const dot = document.getElementById("cursorDot");
-  let cx = 0, cy = 0, tx = 0, ty = 0;
-  window.addEventListener("pointermove", (e) => {
-    tx = e.clientX; ty = e.clientY;
-    dot.style.left = tx + "px";
-    dot.style.top = ty + "px";
-  });
-  (function loop() {
-    cx += (tx - cx) * 0.15;
-    cy += (ty - cy) * 0.15;
-    cursor.style.left = cx + "px";
-    cursor.style.top = cy + "px";
-    requestAnimationFrame(loop);
-  })();
-  document.querySelectorAll("a, button, [data-tilt]").forEach((el) => {
-    el.addEventListener("pointerenter", () => cursor.classList.add("is-hover"));
-    el.addEventListener("pointerleave", () => cursor.classList.remove("is-hover"));
-  });
-}
+/* The custom cursor is gone: it required `cursor: none` on the body,
+   which replaced a pointer every OS already renders well with a laggy
+   div, and on a text-heavy page that is a readability cost for nothing.
+   Magnetic buttons and tilt stay. */
 
 function initMagnetic() {
   if (isTouch || prefersReducedMotion) return;
@@ -2983,33 +3114,6 @@ function initMagnetic() {
     });
     el.addEventListener("pointerleave", () => {
       gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.4)" });
-    });
-  });
-}
-
-const GLYPHS = "!<>-_\\/[]{}=+*^?#";
-function initScramble() {
-  document.querySelectorAll("[data-scramble]").forEach((el) => {
-    const original = el.textContent.trim();
-    let frame = null;
-    el.addEventListener("pointerenter", () => {
-      let i = 0;
-      clearInterval(frame);
-      frame = setInterval(() => {
-        el.textContent = original
-          .split("")
-          .map((c, idx) => {
-            if (idx < i) return original[idx];
-            if (c === " ") return " ";
-            return GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
-          })
-          .join("");
-        i += original.length / 12;
-        if (i >= original.length) {
-          clearInterval(frame);
-          el.textContent = original;
-        }
-      }, 32);
     });
   });
 }
@@ -3108,15 +3212,13 @@ if (!prefersReducedMotion) {
   document.getElementById("webglFallback").hidden = false;
 }
 initScroll();
-initCursor();
 initMagnetic();
-initScramble();
 initTilt();
 initHUD();
 initPreloader();
 
 console.log(
-  "%cMANAN SHAH — PORTFOLIO\n%cYou flew from the clouds to the water and back. Every model is procedural. View source.",
+  "%cMANAN SHAH — PORTFOLIO\n%cYou flew from the clouds to the water and back. Every model is procedural, every texture drawn at boot. View source.",
   "color:#ffab70;font-size:15px;font-weight:bold",
   "color:#bcbacb"
 );
