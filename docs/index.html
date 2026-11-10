@@ -4,19 +4,23 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Manan Shah — AI Engineer</title>
-<meta name="description" content="Manan Shah. AI Engineer at PayPal building LLM, RAG and agentic systems in production. Python, FastAPI, Amazon Bedrock, Pinecone, Kafka, Kubernetes. San Francisco, CA." />
+<meta name="description" content="Manan Shah. AI Engineer at PayPal building LLM, RAG and agentic systems in production, and the solo builder of five live products including DialDo, Reporun and Remote Window. San Francisco, CA." />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <link rel="canonical" href="https://mananshah2254.github.io/" />
 <meta name="google-site-verification" content="-dOI8YQDcAYu8mikwnxu-di0zp2lbDGgASwnOlKfXtk" />
-<meta name="theme-color" content="#0b0c18" />
+<meta name="theme-color" content="#0a0b16" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Manan Shah" />
 <meta property="og:url" content="https://mananshah2254.github.io/" />
 <meta property="og:title" content="Manan Shah — AI Engineer" />
-<meta property="og:description" content="RAG pipelines, agentic workflows and the backends under them. Three products live on the internet." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:description" content="RAG pipelines, agentic workflows and the backends under them. Five products live on the internet." />
+<meta property="og:image" content="https://mananshah2254.github.io/assets/og.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Manan Shah — AI Engineer" />
 <meta name="twitter:description" content="AI engineering, production RAG systems, agentic workflows, and independent products." />
+<meta name="twitter:image" content="https://mananshah2254.github.io/assets/og.jpg" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -24,6 +28,9 @@
   "name": "Manan Shah",
   "url": "https://mananshah2254.github.io/",
   "jobTitle": "AI Engineer",
+  "worksFor": { "@type": "Organization", "name": "PayPal" },
+  "address": { "@type": "PostalAddress", "addressLocality": "San Francisco", "addressRegion": "CA" },
+  "alumniOf": { "@type": "CollegeOrUniversity", "name": "Illinois Institute of Technology" },
   "sameAs": [
     "https://www.linkedin.com/in/mananshah2254",
     "https://github.com/mananshah2254"
@@ -32,169 +39,158 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preconnect" href="https://unpkg.com" crossorigin />
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@1&family=Inter:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='20' y='20' width='60' height='60' rx='8' fill='none' stroke='%23ffab70' stroke-width='6'/></svg>" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230a0b16'/><path d='M24 72V30l26 26 26-26v42' fill='none' stroke='%23ffab70' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
+<script>
+  /* reveals only hide content once we know the script that shows it is coming */
+  document.documentElement.className = "js";
+  setTimeout(function () { if (!window.__siteReady) document.documentElement.className = ""; }, 3000);
+</script>
 </head>
 <body>
 
 <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- ══════════ PRELOADER ══════════ -->
-<div class="preloader" id="preloader">
-  <div class="preloader-inner">
-    <div class="preloader-count mono" id="preloaderCount">00</div>
-    <div class="preloader-bar"><span id="preloaderBar"></span></div>
-    <div class="preloader-label mono">MANAN SHAH — AI ENGINEER</div>
-  </div>
-</div>
-
-<!-- ══════════ ENTER OVERLAY (unlocks audio) ══════════ -->
-<div class="enter-overlay" id="enterOverlay" hidden>
-  <div class="enter-name">Manan Shah</div>
-  <div class="enter-role mono">AI ENGINEER · PAYPAL · SAN FRANCISCO</div>
-  <div class="enter-mission mono">FLIGHT MS-26 · BAY TOUR · 8 CHECKPOINTS · CLEAR SKIES</div>
-  <div class="enter-actions">
-    <button class="btn btn-primary" id="enterBtn" data-magnetic><span>ENTER WITH SOUND</span></button>
-    <button class="enter-silent" id="enterSilent">enter quietly</button>
-  </div>
-</div>
-
-<!-- ══════════ WEBGL CANVAS + ATMOSPHERE ══════════ -->
+<!-- The world. A CSS sky stands in until the WebGL scene has drawn its
+     first frame, and stays if it never does. Nothing waits on it. -->
+<div class="backdrop" aria-hidden="true"></div>
 <canvas id="scene" aria-hidden="true"></canvas>
-<!-- the world recedes behind this once you leave the hero, so text always wins -->
-<div class="world-dim" id="worldDim" aria-hidden="true"></div>
-<div class="grain" aria-hidden="true"></div>
-<div class="vignette" aria-hidden="true"></div>
-
-<!-- ══════════ HUD ══════════ -->
-<div class="toast mono" id="toast"><span class="toast-check">◈</span><span id="toastText"></span></div>
-
-<div class="hud" aria-hidden="true">
-  <div class="hud-item hud-tl mono" id="hudTravel">ALT 0000 FT</div>
-  <div class="hud-item hud-tr mono" id="hudSpd">SPD 000 KT</div>
-  <div class="hud-item hud-bl mono" id="hudSection">01 — TAKEOFF</div>
-  <div class="hud-item hud-br mono" id="hudDepth">0000</div>
-</div>
+<div class="world-dim" aria-hidden="true"></div>
 
 <!-- ══════════ NAV ══════════ -->
-<header class="nav">
-  <a class="nav-logo" href="#hero" data-magnetic>Manan Shah</a>
-  <nav class="nav-links" aria-label="Sections">
-    <a href="#work" data-magnetic>Experience</a>
-    <a href="#projects" data-magnetic>Projects</a>
-    <a href="#skills" data-magnetic>Stack</a>
-    <a href="#contact" data-magnetic>Contact</a>
+<header class="nav" id="nav">
+  <a class="nav-logo" href="#hero" aria-label="Manan Shah, back to top">
+    <span class="nav-mark" aria-hidden="true">MS</span>
+    <span class="nav-name">Manan Shah</span>
+  </a>
+  <nav class="nav-links" id="navLinks" aria-label="Sections">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#work">Work</a>
+    <a href="#stack">Stack</a>
+    <a href="#contact">Contact</a>
   </nav>
   <div class="nav-right">
-    <a class="nav-resume mono" href="assets/Manan_Shah_Resume.pdf" target="_blank" rel="noopener" data-magnetic>RÉSUMÉ ↗</a>
-    <button class="audio-toggle" id="audioToggle" data-magnetic aria-label="Toggle sound">
+    <a class="nav-resume mono" href="assets/Manan_Shah_Resume.pdf" target="_blank" rel="noopener">RÉSUMÉ <span aria-hidden="true">↗</span></a>
+    <button class="audio-toggle" id="audioToggle" type="button" aria-label="Toggle the flight soundtrack" aria-pressed="false">
       <span class="audio-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
       <span class="audio-label mono" id="audioLabel">SOUND OFF</span>
     </button>
+    <button class="nav-burger" id="navBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><i></i><i></i></button>
   </div>
+  <div class="nav-progress" aria-hidden="true"></div>
 </header>
 
 <main id="main">
 
   <!-- ══════════ HERO ══════════ -->
-  <section class="hero section" id="hero" data-sector="01 — TAKEOFF">
-    <div class="hero-kicker mono reveal-line">MANAN SHAH · AI ENGINEER @ PAYPAL · SAN FRANCISCO, CA</div>
-    <h1 class="hero-title" data-split-words>
-      Building <em>LLM systems</em> that hold up in production.
-    </h1>
-    <p class="hero-sub reveal-line">
-      Three-plus years of software engineering across fintech and enterprise.
-      I build RAG pipelines, agentic workflows and the backends underneath them
-      at PayPal, and ship products of my own that are live on the internet.
-    </p>
-    <div class="hero-cta reveal-line">
-      <a class="btn btn-primary" href="#work" data-magnetic><span>VIEW WORK</span></a>
-      <a class="btn btn-ghost" href="assets/Manan_Shah_Resume.pdf" target="_blank" rel="noopener" data-magnetic><span>RÉSUMÉ ↗</span></a>
-      <a class="btn btn-ghost" href="#contact" data-magnetic><span>GET IN TOUCH</span></a>
+  <section class="hero" id="hero" data-sector="01 — TAKEOFF" data-line="WHEELS UP OVER THE BAY. GOLDEN HOUR, CLEAR SKIES.">
+    <div class="hero-copy">
+      <p class="hero-kicker mono"><span class="pulse" aria-hidden="true"></span>AI ENGINEER · PAYPAL · SAN FRANCISCO</p>
+      <h1 class="hero-title">Building <em>LLM systems</em> that hold up in production.</h1>
+      <p class="hero-sub">
+        I build retrieval pipelines, agentic workflows and the backends under them at PayPal.
+        On my own time I design, build and ship products end to end. Five of them are live
+        on the internet right now.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#work">SEE THE WORK</a>
+        <a class="btn btn-ghost" href="assets/Manan_Shah_Resume.pdf" target="_blank" rel="noopener">RÉSUMÉ <span aria-hidden="true">↗</span></a>
+        <a class="btn btn-ghost" href="#contact">GET IN TOUCH</a>
+      </div>
+      <dl class="hero-facts">
+        <div><dt class="mono">NOW</dt><dd>RAG and agents at PayPal</dd></div>
+        <div><dt class="mono">SHIPPED</dt><dd>5 live products, built solo</dd></div>
+        <div><dt class="mono">BUILDS FOR</dt><dd>Web, macOS, iOS, Chrome</dd></div>
+      </dl>
     </div>
-    <div class="scroll-hint mono" aria-hidden="true">
-      <span class="scroll-hint-line"></span>
-      SCROLL — YOU HAVE THE CONTROLS
-    </div>
+    <a class="scroll-hint mono" href="#about" aria-label="Scroll to About">
+      <span class="scroll-hint-line" aria-hidden="true"></span>
+      SCROLL TO FLY
+    </a>
   </section>
 
   <!-- ══════════ ABOUT ══════════ -->
-  <section class="about section" id="about" data-sector="02 — ABOUT">
+  <section class="section" id="about" data-sector="02 — ABOUT" data-line="FIRST FLYBY: THE PILOT.">
     <div class="sheet">
       <div class="about-grid">
-        <figure class="about-photo" data-tilt>
-          <img src="assets/manan.jpg" alt="Manan Shah on the Brooklyn Bridge, Manhattan skyline behind" width="800" height="1000" loading="lazy" decoding="async" />
+        <figure class="about-photo" data-reveal>
+          <img src="assets/manan.webp" alt="Manan Shah on the Brooklyn Bridge, Manhattan skyline behind" width="720" height="900" loading="lazy" decoding="async" />
           <figcaption class="mono">BROOKLYN BRIDGE, NYC</figcaption>
         </figure>
         <div class="about-body">
-          <div class="section-head section-head-tight">
+          <header class="section-head section-head-tight" data-reveal>
             <span class="section-index mono">01</span>
-            <h2 class="section-title" data-split>About</h2>
-          </div>
-          <p class="about-text" data-words>
-            I am an AI engineer with a backend engineer's habits. At PayPal I build
-            the LLM services that help support teams reason about merchant disputes:
-            retrieval over years of resolved cases, grounded generation on top of it,
-            and the unglamorous pipeline work that makes both trustworthy. Before
-            that, three years on enterprise insurance platforms taught me what
-            production actually costs. I prototype fast, then harden the result
-            until it holds. Ambiguous problem in, working system out.
+            <h2 class="section-title">About</h2>
+          </header>
+          <p class="about-text about-lede" data-reveal>
+            I am an AI engineer with a backend engineer's habits.
           </p>
-          <div class="about-facts">
-            <div class="fact"><span class="mono fact-k">CURRENTLY</span><span>Software Engineer at PayPal, AI and LLM systems</span></div>
-            <div class="fact"><span class="mono fact-k">FOCUS</span><span>RAG, agents, embeddings, semantic search</span></div>
-            <div class="fact"><span class="mono fact-k">EDUCATION</span><span>MS Computer Science, Illinois Tech, 2025</span></div>
-            <div class="fact"><span class="mono fact-k">BASE</span><span>San Francisco, CA, open to relocate</span></div>
-          </div>
+          <p class="about-text" data-reveal>
+            At PayPal I build the LLM services that help support teams reason about merchant
+            disputes: retrieval over years of resolved cases, grounded generation on top of it,
+            and the unglamorous pipeline work that makes both trustworthy. Before that, two-plus
+            years on an enterprise insurance platform taught me what production actually costs.
+          </p>
+          <p class="about-text" data-reveal>
+            Outside work I build small products all the way through: the design, the code, the
+            signing and notarization, the billing and the website. Shipping alone is the fastest
+            way I know to learn what a system really needs. Ambiguous problem in, working system out.
+          </p>
+          <dl class="about-facts" data-reveal>
+            <div class="fact"><dt class="mono">CURRENTLY</dt><dd>Software Engineer at PayPal, AI and LLM systems</dd></div>
+            <div class="fact"><dt class="mono">FOCUS</dt><dd>RAG, agents, embeddings, semantic search, LLM evaluation</dd></div>
+            <div class="fact"><dt class="mono">BUILDING</dt><dd>DialDo, Reporun and Remote Window</dd></div>
+            <div class="fact"><dt class="mono">EDUCATION</dt><dd>MS Computer Science, Illinois Tech, 2025</dd></div>
+            <div class="fact"><dt class="mono">BASE</dt><dd>San Francisco, CA. Open to relocate.</dd></div>
+          </dl>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ══════════ STATS ══════════ -->
-  <section class="stats section" id="stats" data-sector="03 — TELEMETRY">
-    <div class="sheet sheet-flat">
-      <div class="stats-grid">
-        <div class="stat">
-          <div class="stat-num"><span data-count="3">0</span><sup>+</sup></div>
+      <div class="stats" aria-label="Checkable numbers">
+        <div class="stat" data-reveal>
+          <div class="stat-num"><span data-count="3">3</span><sup>+</sup></div>
           <div class="stat-label mono">YEARS SHIPPING PRODUCTION SOFTWARE</div>
         </div>
-        <div class="stat">
-          <div class="stat-num"><span data-count="2">0</span></div>
-          <div class="stat-label mono">DOMAINS: FINTECH AND ENTERPRISE INSURANCE</div>
+        <div class="stat" data-reveal>
+          <div class="stat-num"><span data-count="5">5</span></div>
+          <div class="stat-label mono">PRODUCTS LIVE ON THEIR OWN DOMAINS</div>
         </div>
-        <div class="stat">
-          <div class="stat-num"><span data-count="9">0</span></div>
-          <div class="stat-label mono">PRODUCTS DESIGNED, BUILT AND SHIPPED SOLO</div>
+        <div class="stat" data-reveal>
+          <div class="stat-num"><span data-count="15">15</span></div>
+          <div class="stat-label mono">BUILDS DOCUMENTED ON THIS PAGE</div>
         </div>
-        <div class="stat">
-          <div class="stat-num"><span data-count="3">0</span></div>
-          <div class="stat-label mono">LIVE DOMAINS RUNNING IN PUBLIC TODAY</div>
+        <div class="stat" data-reveal>
+          <div class="stat-num"><span data-count="6">6</span></div>
+          <div class="stat-label mono">PLATFORMS: WEB, CHROME, MACOS, WINDOWS, IOS, WATCHOS</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ══════════ EXPERIENCE ══════════ -->
-  <section class="work section" id="work" data-sector="04 — FLIGHT LOG">
+  <section class="section" id="experience" data-sector="03 — FLIGHT LOG" data-line="LOW PASS OVER THE WORK. PAYPAL AND DUCK CREEK.">
     <div class="sheet">
-      <div class="section-head">
+      <header class="section-head" data-reveal>
         <span class="section-index mono">02</span>
-        <h2 class="section-title" data-split>Experience</h2>
-        <span class="section-note mono">A TIMELINE IS JUST DEPTH, TRAVELED</span>
-      </div>
+        <h2 class="section-title">Experience</h2>
+        <span class="section-note mono">FINTECH, THEN ENTERPRISE INSURANCE BEFORE IT</span>
+      </header>
 
-      <article class="job">
+      <article class="job" data-reveal>
         <div class="job-meta">
           <span class="job-year serif">2025</span>
           <span class="job-dates mono">APR 2025 — PRESENT</span>
+          <span class="job-place mono">SAN FRANCISCO, CA</span>
         </div>
         <div class="job-body">
-          <h3 class="job-title">Software Engineer <span class="job-focus mono">AI / LLM PLATFORM</span></h3>
-          <div class="job-org mono">PAYPAL · SAN FRANCISCO, CA</div>
+          <h3 class="job-title">Software Engineer <span class="chip chip-accent mono">AI / LLM SYSTEMS</span></h3>
+          <div class="job-org">PayPal</div>
+          <p class="job-summary">
+            A retrieval-augmented assistant for the people who resolve merchant disputes. It finds
+            how similar cases were settled and drafts a grounded summary with suggested next steps.
+          </p>
           <ul class="job-points">
             <li>Built a Python and FastAPI AI service that helps support teams analyze merchant disputes and retrieve relevant resolutions from previously resolved cases.</li>
             <li>Created a Retrieval-Augmented Generation pipeline using Amazon Bedrock embeddings and Pinecone for semantic search across historical dispute cases and supporting documents.</li>
@@ -204,20 +200,50 @@
             <li>Used Apache Kafka to process new dispute events asynchronously and trigger background indexing workflows without slowing down customer-facing APIs.</li>
             <li>Containerized the application with Docker and deployed it on AWS using Kubernetes, GitHub Actions and CloudWatch for CI/CD, monitoring and production troubleshooting.</li>
           </ul>
-          <div class="job-tags mono">
-            <span>Python</span><span>FastAPI</span><span>Amazon Bedrock</span><span>Pinecone</span><span>Kafka</span><span>Kubernetes</span>
+
+          <figure class="flow">
+            <figcaption class="mono">SYSTEM SKETCH · HOW THE PIECES ABOVE FIT TOGETHER</figcaption>
+            <div class="flow-lane">
+              <span class="flow-tag mono">INDEX</span>
+              <ol class="flow-steps">
+                <li><b>Dispute events</b><span>new and updated cases</span></li>
+                <li><b>Kafka</b><span>async, off the request path</span></li>
+                <li><b>Clean and chunk</b><span>large case records</span></li>
+                <li><b>Bedrock embeddings</b><span>plus case metadata</span></li>
+                <li><b>Pinecone</b><span>vector index</span></li>
+              </ol>
+            </div>
+            <div class="flow-lane">
+              <span class="flow-tag mono">ANSWER</span>
+              <ol class="flow-steps">
+                <li><b>Agent question</b><span>FastAPI service</span></li>
+                <li><b>Filtered retrieval</b><span>semantic search, metadata</span></li>
+                <li><b>Bedrock LLM</b><span>prompt templates</span></li>
+                <li><b>Validation</b><span>structured output checks</span></li>
+                <li><b>Summary, next steps</b><span>for the support agent</span></li>
+              </ol>
+            </div>
+          </figure>
+
+          <div class="tags mono">
+            <span>Python</span><span>FastAPI</span><span>Amazon Bedrock</span><span>Pinecone</span><span>Kafka</span><span>Docker</span><span>Kubernetes</span><span>GitHub Actions</span><span>CloudWatch</span>
           </div>
         </div>
       </article>
 
-      <article class="job">
+      <article class="job" data-reveal>
         <div class="job-meta">
           <span class="job-year serif">2021</span>
           <span class="job-dates mono">MAR 2021 — JUL 2023</span>
+          <span class="job-place mono">P&amp;C INSURANCE PLATFORM</span>
         </div>
         <div class="job-body">
-          <h3 class="job-title">Software Engineer <span class="job-focus mono">ENTERPRISE PLATFORMS</span></h3>
-          <div class="job-org mono">DUCK CREEK TECHNOLOGIES</div>
+          <h3 class="job-title">Software Engineer <span class="chip chip-accent mono">ENTERPRISE PLATFORMS</span></h3>
+          <div class="job-org">Duck Creek Technologies</div>
+          <p class="job-summary">
+            Backend services for policy administration, billing and claims, on a platform insurers
+            run their business on. Also where a hackathon project took first place among 200+ teams.
+          </p>
           <ul class="job-points">
             <li>Developed Java, Spring Boot and Hibernate services for policy administration, billing and claims workflows on an enterprise P&amp;C insurance platform.</li>
             <li>Designed REST APIs for quote, policy, billing and claims workflows, and integrated backend services with payment processors and third-party insurance systems.</li>
@@ -226,328 +252,439 @@
             <li>Helped break parts of a legacy Java application into independently deployable Spring Boot microservices, improving maintainability and release flexibility.</li>
             <li>Investigated production issues using application logs, API traces and database queries, identifying root causes across distributed services and third-party integrations.</li>
           </ul>
-          <div class="job-tags mono">
-            <span>Java 17</span><span>Spring Boot</span><span>Hibernate</span><span>PostgreSQL</span><span>MongoDB</span><span>Kafka</span>
+          <div class="tags mono">
+            <span>Java 17</span><span>Spring Boot</span><span>Hibernate</span><span>PostgreSQL</span><span>MongoDB</span><span>Kafka</span><span>REST APIs</span><span>Microservices</span>
           </div>
         </div>
       </article>
     </div>
   </section>
 
-  <!-- ══════════ PROJECTS ══════════ -->
-  <section class="projects section" id="projects" data-sector="05 — ARTIFACTS">
+  <!-- ══════════ SELECTED WORK ══════════ -->
+  <section class="section" id="work" data-sector="04 — SELECTED WORK" data-line="FIVE PRODUCTS, EACH LIVE ON ITS OWN DOMAIN.">
     <div class="sheet">
-      <div class="section-head">
+      <header class="section-head" data-reveal>
         <span class="section-index mono">03</span>
-        <h2 class="section-title" data-split>Projects</h2>
+        <h2 class="section-title">Selected work</h2>
         <span class="section-note mono">SHIPPED. LIVE. NOT SLIDEWARE.</span>
-      </div>
+      </header>
+      <p class="section-intro" data-reveal>
+        Five products I designed, built and shipped on my own. Every screenshot below is the real
+        site, and every link resolves.
+      </p>
 
-      <div class="projects-grid">
-
-        <article class="card">
-          <div class="card-top">
-            <div class="card-index mono">01</div>
-            <div class="card-status mono"><span class="dot"></span> LIVE</div>
-          </div>
-          <h3 class="card-title">TrailMail</h3>
-          <p class="card-desc">
-            A Chrome extension that predicts work emails from public company patterns and
-            sends personalized outreach through Gmail. Entirely client side, send-only OAuth
-            scope, open and click tracking, no server ever holding your data. Published on
-            the Chrome Web Store.
+      <article class="work" data-reveal>
+        <a class="work-shot" href="https://dialdo.com" target="_blank" rel="noopener" aria-label="Open dialdo.com">
+          <span class="chrome" aria-hidden="true"><i></i><i></i><i></i><span class="mono">dialdo.com</span></span>
+          <img src="assets/work/dialdo.webp" alt="DialDo website. Headline: You dial. It does." width="1120" height="700" loading="lazy" decoding="async" />
+        </a>
+        <div class="work-body">
+          <div class="work-meta mono"><span class="status"><span class="dot"></span>LIVE</span><span>MACOS APP</span><span>V0.2.7</span></div>
+          <h3 class="work-title">DialDo</h3>
+          <p class="work-lede">Give your Mac a phone number. Call it from anywhere and ask it to do a task.</p>
+          <p class="work-desc">
+            A local-first voice agent. You call a personal number, speak naturally and confirm once.
+            A cloud gateway routes the call to the desktop app on your Mac, which finds files,
+            summarizes PDFs, writes documents and sends email, then tells you how it went.
           </p>
-          <div class="card-tags mono">
-            <span>JavaScript</span><span>Gmail API</span><span>Hunter.io</span><span>Chrome MV3</span><span>OAuth2</span>
+          <ul class="work-points">
+            <li>The phone service and the computer are separated. The Mac dials out to the gateway over an authenticated connection, so nothing exposes a remote shell.</li>
+            <li>Caller number plus a spoken PIN, then one confirmation for the whole task before the first side effect.</li>
+            <li>It checks tool evidence before it says a task is done. Opening an app is not proof the file was sent.</li>
+            <li>Plugin-based tool registry, SQLite task history, signed and notarized for macOS.</li>
+          </ul>
+          <div class="tags mono"><span>TypeScript</span><span>Electron</span><span>Twilio</span><span>LLM APIs</span><span>WebSockets</span><span>SQLite</span></div>
+          <div class="links">
+            <a class="link mono" href="https://dialdo.com" target="_blank" rel="noopener">DIALDO.COM <span aria-hidden="true">↗</span></a>
+            <a class="link link-sub mono" href="https://github.com/mananshah2254/dialdo-downloads" target="_blank" rel="noopener">RELEASES <span aria-hidden="true">↗</span></a>
           </div>
-          <div class="card-links">
-            <a class="card-link mono" href="https://trailmails.com" target="_blank" rel="noopener" data-magnetic>TRAILMAILS.COM ↗</a>
-            <a class="card-link card-link-sub mono" href="https://chromewebstore.google.com/detail/bgmdpfdhgaignpljdpkmneeggbiolkce" target="_blank" rel="noopener">WEB STORE ↗</a>
-            <a class="card-link card-link-sub mono" href="https://github.com/mananshah2254/trailmail" target="_blank" rel="noopener">CODE ↗</a>
+        </div>
+      </article>
+
+      <article class="work" data-reveal>
+        <a class="work-shot" href="https://reporun.app" target="_blank" rel="noopener" aria-label="Open reporun.app">
+          <span class="chrome" aria-hidden="true"><i></i><i></i><i></i><span class="mono">reporun.app</span></span>
+          <img src="assets/work/reporun.webp" alt="Reporun website. Headline: Know what a repo needs before you run it." width="1120" height="700" loading="lazy" decoding="async" />
+        </a>
+        <div class="work-body">
+          <div class="work-meta mono"><span class="status"><span class="dot"></span>LIVE</span><span>MACOS + WINDOWS</span><span>OPEN SOURCE, MIT</span></div>
+          <h3 class="work-title">Reporun</h3>
+          <p class="work-lede">Know what a repo needs before you run it.</p>
+          <p class="work-desc">
+            A free desktop app for anyone who has cloned a project and lost an afternoon to setup.
+            Paste a public GitHub or GitLab link. It reads the manifests, compares the requirements
+            with your machine and lists what is missing in plain language.
+          </p>
+          <ul class="work-points">
+            <li>Inspection is pinned to an immutable commit, so the report describes exactly what you are about to run.</li>
+            <li>Nothing installs, downloads or runs without an explicit command preview first.</li>
+            <li>Google sign-in through the system browser with PKCE and a loopback callback. Tokens live in OS-backed secure storage, never in the renderer.</li>
+            <li>Mac installers are Developer ID signed and notarized for Apple silicon and Intel. Windows ships as a preview.</li>
+          </ul>
+          <div class="tags mono"><span>TypeScript</span><span>Electron</span><span>Supabase</span><span>PostgreSQL RLS</span><span>OAuth PKCE</span><span>Playwright</span></div>
+          <div class="links">
+            <a class="link mono" href="https://reporun.app" target="_blank" rel="noopener">REPORUN.APP <span aria-hidden="true">↗</span></a>
+            <a class="link link-sub mono" href="https://github.com/mananshah2254/repo-run" target="_blank" rel="noopener">SOURCE <span aria-hidden="true">↗</span></a>
+            <a class="link link-sub mono" href="https://github.com/mananshah2254/repo-run-downloads" target="_blank" rel="noopener">DOWNLOADS <span aria-hidden="true">↗</span></a>
           </div>
+        </div>
+      </article>
+
+      <article class="work" data-reveal>
+        <a class="work-shot" href="https://www.remotewindow.app" target="_blank" rel="noopener" aria-label="Open remotewindow.app">
+          <span class="chrome" aria-hidden="true"><i></i><i></i><i></i><span class="mono">remotewindow.app</span></span>
+          <img src="assets/work/remotewindow.webp" alt="Remote Window website. Headline: One window. Anywhere." width="1120" height="700" loading="lazy" decoding="async" />
+        </a>
+        <div class="work-body">
+          <div class="work-meta mono"><span class="status"><span class="dot"></span>LIVE</span><span>MACOS APP</span><span>PUBLIC PREVIEW</span></div>
+          <h3 class="work-title">Remote Window</h3>
+          <p class="work-lede">Share one Mac window, not your whole screen.</p>
+          <p class="work-desc">
+            A native macOS host captures a single window with its audio and streams it over WebRTC
+            to any phone, tablet or browser. The viewer installs nothing. They open a link or scan
+            a code, you approve them on the Mac, and they can watch or take touch control.
+          </p>
+          <ul class="work-points">
+            <li>Least privilege by design. One window leaves the machine, and every viewer is approved by hand.</li>
+            <li>Sessions carry a timer from one hour to a day, and a link can be revoked at any moment.</li>
+            <li>Touch input from the viewer (tap, two-finger scroll, pinch, typing, trackpad mode) is mapped back onto the shared window's coordinates.</li>
+            <li>Three parts: a Swift capture host, a TypeScript web viewer, and a small signaling service.</li>
+          </ul>
+          <div class="tags mono"><span>Swift</span><span>WebRTC</span><span>TypeScript</span><span>Vite</span><span>Signaling service</span><span>Cloudflare Workers</span></div>
+          <div class="links">
+            <a class="link mono" href="https://www.remotewindow.app" target="_blank" rel="noopener">REMOTEWINDOW.APP <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="work" data-reveal>
+        <a class="work-shot" href="https://trailmails.com" target="_blank" rel="noopener" aria-label="Open trailmails.com">
+          <span class="chrome" aria-hidden="true"><i></i><i></i><i></i><span class="mono">trailmails.com</span></span>
+          <img src="assets/work/trailmail.webp" alt="TrailMail website. Headline: Turn LinkedIn into your inbox." width="1120" height="700" loading="lazy" decoding="async" />
+        </a>
+        <div class="work-body">
+          <div class="work-meta mono"><span class="status"><span class="dot"></span>LIVE</span><span>CHROME EXTENSION</span><span>ON THE WEB STORE</span></div>
+          <h3 class="work-title">TrailMail</h3>
+          <p class="work-lede">Predict a company's work emails, then send personal outreach from your own Gmail.</p>
+          <p class="work-desc">
+            A Chrome extension that reads the profiles on a LinkedIn page, works out the company's
+            email pattern from public data and drafts a personalized message for each person. It
+            sends through your own Gmail and can show opens and clicks in the same panel.
+          </p>
+          <ul class="work-points">
+            <li>One lookup credit resolves a whole company. Every other address at that domain is inferred locally from the pattern.</li>
+            <li>Send-only OAuth scope through Chrome's identity API. No client secret, and no server ever holds your mail.</li>
+            <li>One email per recipient, throttled, with a retry on rate limits and a per-person status.</li>
+            <li>Results are always labeled as predictions, never as verified addresses.</li>
+          </ul>
+          <div class="tags mono"><span>JavaScript</span><span>Chrome MV3</span><span>Gmail API</span><span>OAuth2</span><span>Hunter.io</span><span>Cloudflare Workers</span></div>
+          <div class="links">
+            <a class="link mono" href="https://trailmails.com" target="_blank" rel="noopener">TRAILMAILS.COM <span aria-hidden="true">↗</span></a>
+            <a class="link link-sub mono" href="https://chromewebstore.google.com/detail/bgmdpfdhgaignpljdpkmneeggbiolkce" target="_blank" rel="noopener">WEB STORE <span aria-hidden="true">↗</span></a>
+            <a class="link link-sub mono" href="https://github.com/mananshah2254/trailmail" target="_blank" rel="noopener">CODE <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="work" data-reveal>
+        <a class="work-shot" href="https://gitpixelpush.com" target="_blank" rel="noopener" aria-label="Open gitpixelpush.com">
+          <span class="chrome" aria-hidden="true"><i></i><i></i><i></i><span class="mono">gitpixelpush.com</span></span>
+          <img src="assets/work/gitpixelpush.webp" alt="GitPixelPush website. Headline: Your contribution graph, painted by you." width="1120" height="700" loading="lazy" decoding="async" />
+        </a>
+        <div class="work-body">
+          <div class="work-meta mono"><span class="status"><span class="dot"></span>LIVE</span><span>WEB APP</span><span>OPEN SOURCE</span></div>
+          <h3 class="work-title">GitPixelPush</h3>
+          <p class="work-lede">Your GitHub contribution graph, painted by you.</p>
+          <p class="work-desc">
+            Sign in, sketch pixels onto your real contribution graph, review the exact plan and push.
+            A browser-side engine writes clearly labeled, backdated empty commits through the Git
+            Data API. Nothing is cloned and nothing is hidden.
+          </p>
+          <ul class="work-points">
+            <li>The whole engine runs in the page. There is no backend doing git work, and your token never leaves the browser.</li>
+            <li>One Cloudflare Worker serves the site and handles the OAuth code exchange. That is the entire server.</li>
+            <li>Every commit is labeled as graph art, so the picture is disclosed rather than disguised as activity.</li>
+          </ul>
+          <div class="tags mono"><span>Vanilla JS</span><span>Git Data API</span><span>GitHub OAuth</span><span>Cloudflare Workers</span></div>
+          <div class="links">
+            <a class="link mono" href="https://gitpixelpush.com" target="_blank" rel="noopener">GITPIXELPUSH.COM <span aria-hidden="true">↗</span></a>
+            <a class="link link-sub mono" href="https://github.com/mananshah2254/gitpixelpush" target="_blank" rel="noopener">CODE <span aria-hidden="true">↗</span></a>
+            <a class="link link-sub mono" href="https://github.com/mananshah2254/pixel-canvas" target="_blank" rel="noopener">EXAMPLE CANVAS <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ══════════ MORE BUILDS ══════════ -->
+  <section class="section" id="builds" data-sector="05 — HANGAR" data-line="TEN MORE BUILDS IN THE HANGAR.">
+    <div class="sheet">
+      <header class="section-head" data-reveal>
+        <span class="section-index mono">04</span>
+        <h2 class="section-title">More builds</h2>
+        <span class="section-note mono">PROTOTYPES, TOOLS AND EXPERIMENTS</span>
+      </header>
+      <p class="section-intro" data-reveal>
+        The rest of the hangar. Each card says plainly what state the thing is in. Private work
+        carries a label instead of a dead link.
+      </p>
+
+      <div class="builds">
+
+        <article class="card" data-reveal>
+          <div class="card-top"><span class="card-kind mono">APPLE WATCH · MAC · IPHONE</span><span class="status mono"><span class="dot dot-amber"></span>PROTOTYPE</span></div>
+          <h3 class="card-title">AirBridge</h3>
+          <p class="card-desc">
+            Flick your wrist and a file leaves the Mac for a nearby iPhone. The Watch recognizes the
+            gesture with Core Motion, its paired phone relays it, and the Mac sends encrypted chunks
+            that the receiver verifies by SHA-256 before saving. X25519 key agreement, AES-GCM, and
+            a six-digit code to compare on both ends. The README is blunt about what is untested.
+          </p>
+          <div class="tags mono"><span>Swift</span><span>watchOS</span><span>Core Motion</span><span>Bonjour</span><span>Network.framework</span></div>
+          <div class="links"><a class="link mono" href="https://github.com/mananshah2254/airbridge-spatial-file-sharing" target="_blank" rel="noopener">SOURCE <span aria-hidden="true">↗</span></a></div>
         </article>
 
-        <article class="card">
-          <div class="card-top">
-            <div class="card-index mono">02</div>
-            <div class="card-status mono"><span class="dot"></span> LIVE</div>
-          </div>
-          <h3 class="card-title">DialDo</h3>
+        <article class="card" data-reveal>
+          <div class="card-top"><span class="card-kind mono">MACOS MENU BAR</span><span class="status mono"><span class="dot dot-amber"></span>SIGNED PREVIEW</span></div>
+          <h3 class="card-title">PickUp</h3>
           <p class="card-desc">
-            Give your Mac a phone number. A local-first voice agent: you call a Twilio number,
-            a cloud gateway routes the intent to an Electron desktop client, and it finds files,
-            summarizes PDFs, writes documents and sends email. Plugin-based tool registry, SQLite
-            task history, signed and notarized for macOS.
+            Four named work Spaces for a Mac. Each one remembers its Chrome windows, Finder folders
+            and VS Code projects. Switching saves the outgoing Space, closes what it manages and
+            reopens the next. It never force-quits an app or writes over unsaved work. A native app
+            with a Chrome extension and a VS Code extension behind it.
           </p>
-          <div class="card-tags mono">
-            <span>TypeScript</span><span>Electron</span><span>Twilio</span><span>LLM APIs</span><span>SQLite</span>
-          </div>
-          <div class="card-links">
-            <a class="card-link mono" href="https://dialdo.com" target="_blank" rel="noopener" data-magnetic>DIALDO.COM ↗</a>
-          </div>
+          <div class="tags mono"><span>Swift</span><span>Chrome extension</span><span>VS Code extension</span><span>Developer ID</span></div>
+          <div class="links"><span class="link link-static mono">PRIVATE REPO</span></div>
         </article>
 
-        <article class="card">
-          <div class="card-top">
-            <div class="card-index mono">03</div>
-            <div class="card-status mono"><span class="dot"></span> LIVE</div>
-          </div>
-          <h3 class="card-title">GitPixelPush</h3>
+        <article class="card" data-reveal>
+          <div class="card-top"><span class="card-kind mono">IOS APP + SERVICE</span><span class="status mono"><span class="dot dot-amber"></span>DEVELOPMENT BUILD</span></div>
+          <h3 class="card-title">Relay for iPhone</h3>
           <p class="card-desc">
-            Draw pixel art on your GitHub contribution graph. A browser-side engine that writes
-            back dated commits through the Git Data API: no clone, no server, and your token
-            never leaves the page. Served from a Cloudflare Worker that also handles the OAuth
-            exchange.
+            Referral outreach from the share sheet. Share a job, confirm the role and company, and
+            Relay finds contacts, prepares a message from your template and queues it through your
+            Gmail with spacing, a daily cap and a review step. A dependency-free Node service keeps
+            its state encrypted on disk. It treats a shared link as a reference and does not scrape.
           </p>
-          <div class="card-tags mono">
-            <span>Git Data API</span><span>Cloudflare Workers</span><span>OAuth</span><span>Vanilla JS</span>
-          </div>
-          <div class="card-links">
-            <a class="card-link mono" href="https://gitpixelpush.com" target="_blank" rel="noopener" data-magnetic>GITPIXELPUSH.COM ↗</a>
-            <a class="card-link card-link-sub mono" href="https://github.com/mananshah2254/gitpixelpush" target="_blank" rel="noopener">CODE ↗</a>
-          </div>
+          <div class="tags mono"><span>Swift</span><span>Share Extension</span><span>Node.js</span><span>Gmail API</span><span>Hunter.io</span></div>
+          <div class="links"><a class="link mono" href="https://github.com/mananshah2254/relay-ios" target="_blank" rel="noopener">SOURCE <span aria-hidden="true">↗</span></a></div>
         </article>
 
-        <article class="card">
-          <div class="card-top">
-            <div class="card-index mono">04</div>
-            <div class="card-status mono"><span class="dot"></span> LIVE</div>
-          </div>
-          <h3 class="card-title">Reporun</h3>
+        <article class="card" data-reveal>
+          <div class="card-top"><span class="card-kind mono">DASHBOARD + WORKER</span><span class="status mono"><span class="dot dot-amber"></span>PAPER ONLY</span></div>
+          <h3 class="card-title">Sentinel</h3>
           <p class="card-desc">
-            A desktop preflight tool for public GitHub and GitLab repositories. It reads
-            project manifests, compares requirements with your Mac or Windows PC, and
-            presents setup commands for review before you run unfamiliar code.
+            A trading desk simulator built to study the engineering, not to make a claim about
+            returns. A dashboard, an authenticated API and an independent worker run synthetic
+            executions against a daily loss cap. State changes use compare-and-swap with idempotency
+            keys, so two runners cannot fill the same tick twice. Real order submission is locked
+            out at compile time.
           </p>
-          <div class="card-tags mono">
-            <span>Desktop app</span><span>GitHub</span><span>GitLab</span><span>Developer tools</span>
-          </div>
-          <div class="card-links">
-            <a class="card-link mono" href="https://reporun.app" target="_blank" rel="noopener" data-magnetic>REPORUN.APP ↗</a>
-            <a class="card-link card-link-sub mono" href="https://reporun.app/run-github-repository" target="_blank" rel="noopener">SETUP GUIDE ↗</a>
-          </div>
+          <div class="tags mono"><span>TypeScript</span><span>React</span><span>Cloudflare D1</span><span>Python</span></div>
+          <div class="links"><span class="link link-static mono">PRIVATE REPO</span></div>
         </article>
 
-        <article class="card">
-          <div class="card-top">
-            <div class="card-index mono">05</div>
-            <div class="card-status mono"><span class="dot dot-green"></span> OPEN SOURCE</div>
-          </div>
+        <article class="card" data-reveal>
+          <div class="card-top"><span class="card-kind mono">CHROME EXTENSION</span><span class="status mono"><span class="dot dot-green"></span>OPEN SOURCE</span></div>
           <h3 class="card-title">OutreachOS</h3>
           <p class="card-desc">
-            A multi-step LinkedIn cadence engine in the browser: visit, connect, message and
-            follow, sequenced with delays and daily caps. Runs against the Voyager API rather
-            than clicking the DOM, which is the only approach that survives a redesign. 158
-            unit tests behind the scheduler.
+            A multi-step LinkedIn cadence engine in the browser: visit, connect, message and follow,
+            sequenced with delays and daily caps at a human pace. It talks to the Voyager API rather
+            than clicking the DOM, which is the only approach that survives a redesign. 158 unit
+            tests behind the scheduler.
           </p>
-          <div class="card-tags mono">
-            <span>Chrome MV3</span><span>Voyager API</span><span>Service Workers</span><span>IndexedDB</span>
-          </div>
-          <div class="card-links">
-            <a class="card-link mono" href="https://github.com/mananshah2254/OutreachOS" target="_blank" rel="noopener" data-magnetic>SOURCE ON GITHUB ↗</a>
-          </div>
+          <div class="tags mono"><span>Chrome MV3</span><span>Voyager API</span><span>Service workers</span><span>IndexedDB</span></div>
+          <div class="links"><a class="link mono" href="https://github.com/mananshah2254/OutreachOS" target="_blank" rel="noopener">SOURCE <span aria-hidden="true">↗</span></a></div>
         </article>
 
-        <article class="card">
-          <div class="card-top">
-            <div class="card-index mono">06</div>
-            <div class="card-status mono"><span class="dot dot-amber"></span> IN DEVELOPMENT</div>
-          </div>
+        <article class="card" data-reveal>
+          <div class="card-top"><span class="card-kind mono">CHROME EXTENSION</span><span class="status mono"><span class="dot dot-amber"></span>PRIVATE BETA</span></div>
           <h3 class="card-title">Relay</h3>
           <p class="card-desc">
-            A two-lane outreach engine: emails go out up front while the LinkedIn crawl runs in
-            the background, so the slow lane never blocks the fast one. Includes a template studio
-            with attachments and live preview, plus a credit strategy that spends per company
-            instead of per person. 773 tests.
+            A two-lane outreach engine. Emails go out up front while the LinkedIn crawl runs in the
+            background, so the slow lane never blocks the fast one. A template studio with
+            attachments and live preview, and a credit strategy that spends per company instead of
+            per person. 773 tests.
           </p>
-          <div class="card-tags mono">
-            <span>Chrome MV3</span><span>Gmail API</span><span>Job Queues</span><span>Vitest</span>
-          </div>
-          <span class="card-link card-link-static mono">PRIVATE BETA</span>
+          <div class="tags mono"><span>Chrome MV3</span><span>Gmail API</span><span>Job queues</span><span>Vitest</span></div>
+          <div class="links"><span class="link link-static mono">PRIVATE BETA</span></div>
         </article>
 
-        <article class="card">
-          <div class="card-top">
-            <div class="card-index mono">07</div>
-            <div class="card-status mono"><span class="dot dot-amber"></span> ENTERPRISE POC</div>
-          </div>
+        <article class="card" data-reveal>
+          <div class="card-top"><span class="card-kind mono">VOICE AGENT</span><span class="status mono"><span class="dot dot-amber"></span>ENTERPRISE POC</span></div>
           <h3 class="card-title">Agentic Voice System</h3>
           <p class="card-desc">
             End-to-end voice agent orchestration built for an enterprise prospect. LLM reasoning,
             webhooks and CRM-style data handoffs, with conversation logic that survives multi-step
-            tasks without losing the plot. The repeatable agentic pattern underneath it became DialDo.
+            tasks without losing the plot. The agentic pattern underneath it became DialDo.
           </p>
-          <div class="card-tags mono">
-            <span>Python</span><span>Bland AI</span><span>n8n</span><span>Webhooks</span><span>LLM APIs</span>
-          </div>
-          <span class="card-link card-link-static mono">CASE STUDY ON REQUEST</span>
+          <div class="tags mono"><span>Python</span><span>Bland AI</span><span>n8n</span><span>Webhooks</span><span>LLM APIs</span></div>
+          <div class="links"><span class="link link-static mono">CASE STUDY ON REQUEST</span></div>
         </article>
 
-        <article class="card">
-          <div class="card-top">
-            <div class="card-index mono">08</div>
-            <div class="card-status mono"><span class="dot dot-amber"></span> INTERNAL TOOL</div>
-          </div>
+        <article class="card" data-reveal>
+          <div class="card-top"><span class="card-kind mono">PYTHON SERVICE</span><span class="status mono"><span class="dot dot-amber"></span>INTERNAL TOOL</span></div>
           <h3 class="card-title">Email Research Engine</h3>
           <p class="card-desc">
-            The inference backend behind TrailMail. A Flask service that resolves a company name
-            to its real domain, mines public pages and search snippets for example addresses,
-            then infers the organization's address pattern and scores its own confidence. One
-            paid lookup per company, never per person.
+            The inference backend that started TrailMail. A Flask service that resolves a company
+            name to its real domain, mines public pages and search snippets for example addresses,
+            infers the organization's address pattern and scores its own confidence. One paid
+            lookup per company, never per person.
           </p>
-          <div class="card-tags mono">
-            <span>Python</span><span>Flask</span><span>BeautifulSoup</span><span>SSE</span><span>Hunter.io</span>
-          </div>
-          <span class="card-link card-link-static mono">POWERS TRAILMAIL</span>
+          <div class="tags mono"><span>Python</span><span>Flask</span><span>BeautifulSoup</span><span>SSE</span></div>
+          <div class="links"><span class="link link-static mono">POWERS TRAILMAIL</span></div>
         </article>
 
-        <article class="card">
-          <div class="card-top">
-            <div class="card-index mono">09</div>
-            <div class="card-status mono"><span class="dot dot-amber"></span> RESEARCH BUILD</div>
-          </div>
+        <article class="card" data-reveal>
+          <div class="card-top"><span class="card-kind mono">CHROME EXTENSION</span><span class="status mono"><span class="dot dot-amber"></span>RESEARCH BUILD</span></div>
           <h3 class="card-title">ConnectPilot</h3>
           <p class="card-desc">
-            A LinkedIn connection automation extension, and mostly an exercise in reverse
-            engineering: DOM clicking proved to be a dead end, so I built request-capture
-            tooling, found the real invitation endpoint, and drove it directly with the
-            correct payload shape.
+            A LinkedIn connection tool that turned into an exercise in reverse engineering. Clicking
+            the DOM proved to be a dead end, so I built request-capture tooling, found the real
+            invitation endpoint and drove it directly with the correct payload shape.
           </p>
-          <div class="card-tags mono">
-            <span>Chrome MV3</span><span>webRequest</span><span>Voyager API</span>
-          </div>
-          <span class="card-link card-link-static mono">PRIVATE REPO</span>
+          <div class="tags mono"><span>Chrome MV3</span><span>webRequest</span><span>Voyager API</span></div>
+          <div class="links"><span class="link link-static mono">PRIVATE REPO</span></div>
         </article>
 
-        <article class="card">
-          <div class="card-top">
-            <div class="card-index mono">10</div>
-            <div class="card-status mono"><span class="dot"></span> YOU ARE HERE</div>
-          </div>
-          <h3 class="card-title">This Portfolio</h3>
+        <article class="card" data-reveal>
+          <div class="card-top"><span class="card-kind mono">THIS SITE</span><span class="status mono"><span class="dot"></span>YOU ARE HERE</span></div>
+          <h3 class="card-title">This portfolio</h3>
           <p class="card-desc">
-            The world you are flying over. A procedural dusk coastline in Three.js with real
-            planar water reflections, merged city geometry, a lathe-turned aircraft and a
-            generative WebAudio score. Zero downloaded assets: every texture is drawn to a
-            canvas at boot.
+            The bay you are flying over is generated at load: a physically based sky, an ocean
+            shader with a procedural normal map, lighting baked from that same sky, and a coastline
+            batched from about 9,500 draw calls a frame down to about 1,700. No 3D assets, no
+            framework, no build step. The page itself is readable before any of it arrives.
           </p>
-          <div class="card-tags mono">
-            <span>Three.js</span><span>GLSL</span><span>GSAP</span><span>WebAudio</span>
-          </div>
-          <span class="card-link card-link-static mono">LOOK DOWN ↓</span>
-        </article>
-
-        <article class="card card-cta">
-          <div class="card-top">
-            <div class="card-index mono">11</div>
-          </div>
-          <h3 class="card-title">Your idea<br/>here</h3>
-          <p class="card-desc">
-            The next one gets built at your company. I prototype fast and ship things
-            that survive contact with production.
-          </p>
-          <a class="card-link mono" href="#contact" data-magnetic>START A CONVERSATION ↗</a>
+          <div class="tags mono"><span>Three.js</span><span>GLSL</span><span>WebAudio</span><span>Vanilla JS</span></div>
+          <div class="links"><a class="link mono" href="https://github.com/mananshah2254/mananshah2254.github.io" target="_blank" rel="noopener">VIEW SOURCE <span aria-hidden="true">↗</span></a></div>
         </article>
 
       </div>
     </div>
   </section>
 
-  <!-- ══════════ SKILLS ══════════ -->
-  <section class="skills section" id="skills" data-sector="06 — STACK">
+  <!-- ══════════ STACK ══════════ -->
+  <section class="section" id="stack" data-sector="06 — STACK" data-line="TOOLKIT INSPECTION AT CRUISING SPEED.">
     <div class="sheet">
-      <div class="section-head">
-        <span class="section-index mono">04</span>
-        <h2 class="section-title" data-split>Stack</h2>
+      <header class="section-head" data-reveal>
+        <span class="section-index mono">05</span>
+        <h2 class="section-title">Stack</h2>
         <span class="section-note mono">TOOLS ARE TEMPORARY. SYSTEMS THINKING ISN’T.</span>
-      </div>
+      </header>
 
-      <div class="marquee-wrap">
-        <div class="marquee" data-speed="1">
-          <div class="marquee-inner mono">
-            LLMS · RAG · PROMPT ENGINEERING · EMBEDDINGS · SEMANTIC SEARCH · AI AGENTS · TOOL CALLING · MCP · LLM EVALUATION ·&nbsp;
-          </div>
-        </div>
-        <div class="marquee" data-speed="-1">
-          <div class="marquee-inner mono">
-            PYTHON · JAVA 17 · TYPESCRIPT · SQL · FASTAPI · SPRING BOOT · REST APIS · MICROSERVICES · APACHE KAFKA ·&nbsp;
-          </div>
-        </div>
-        <div class="marquee" data-speed="0.7">
-          <div class="marquee-inner mono">
-            AMAZON BEDROCK · PINECONE · LANGCHAIN · LANGGRAPH · AWS EKS · LAMBDA · DOCKER · KUBERNETES · GITHUB ACTIONS ·&nbsp;
-          </div>
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track mono">
+          <span>LLMS · RAG · EMBEDDINGS · SEMANTIC SEARCH · AI AGENTS · TOOL CALLING · MCP · LLM EVALUATION · PYTHON · TYPESCRIPT · JAVA 17 · SWIFT · FASTAPI · SPRING BOOT · KAFKA · AMAZON BEDROCK · PINECONE · LANGGRAPH · DOCKER · KUBERNETES ·&nbsp;</span>
+          <span>LLMS · RAG · EMBEDDINGS · SEMANTIC SEARCH · AI AGENTS · TOOL CALLING · MCP · LLM EVALUATION · PYTHON · TYPESCRIPT · JAVA 17 · SWIFT · FASTAPI · SPRING BOOT · KAFKA · AMAZON BEDROCK · PINECONE · LANGGRAPH · DOCKER · KUBERNETES ·&nbsp;</span>
         </div>
       </div>
 
-      <div class="skills-grid">
-        <div class="skill-block">
-          <h4 class="skill-block-title mono">PROGRAMMING LANGUAGES</h4>
-          <p>Python, Java 17, TypeScript, JavaScript, SQL.</p>
-        </div>
-        <div class="skill-block">
-          <h4 class="skill-block-title mono">GENERATIVE AI &amp; LLMS</h4>
+      <div class="skills">
+        <div class="skill" data-reveal>
+          <h3 class="skill-title mono">GENERATIVE AI &amp; LLMS</h3>
           <p>LLMs, RAG, prompt engineering, embeddings, semantic search, AI agents, tool calling, MCP.</p>
         </div>
-        <div class="skill-block">
-          <h4 class="skill-block-title mono">AI FRAMEWORKS &amp; PLATFORMS</h4>
+        <div class="skill" data-reveal>
+          <h3 class="skill-title mono">AI FRAMEWORKS &amp; PLATFORMS</h3>
           <p>LangChain, LangGraph, Amazon Bedrock, OpenAI API, Anthropic Claude, Hugging Face.</p>
         </div>
-        <div class="skill-block">
-          <h4 class="skill-block-title mono">DATABASES &amp; VECTOR SEARCH</h4>
-          <p>Pinecone, ChromaDB, PostgreSQL, MongoDB, Redis.</p>
+        <div class="skill" data-reveal>
+          <h3 class="skill-title mono">PROGRAMMING LANGUAGES</h3>
+          <p>Python, Java 17, TypeScript, JavaScript, SQL.</p>
         </div>
-        <div class="skill-block">
-          <h4 class="skill-block-title mono">BACKEND &amp; APIS</h4>
+        <div class="skill" data-reveal>
+          <h3 class="skill-title mono">BACKEND &amp; APIS</h3>
           <p>FastAPI, Spring Boot, REST APIs, microservices, Apache Kafka.</p>
         </div>
-        <div class="skill-block">
-          <h4 class="skill-block-title mono">CLOUD &amp; MLOPS</h4>
+        <div class="skill" data-reveal>
+          <h3 class="skill-title mono">DATABASES &amp; VECTOR SEARCH</h3>
+          <p>Pinecone, ChromaDB, PostgreSQL, MongoDB, Redis.</p>
+        </div>
+        <div class="skill" data-reveal>
+          <h3 class="skill-title mono">CLOUD &amp; MLOPS</h3>
           <p>AWS (EC2, S3, RDS, EKS, Lambda, CloudWatch), Docker, Kubernetes, GitHub Actions, CI/CD.</p>
         </div>
-        <div class="skill-block">
-          <h4 class="skill-block-title mono">TOOLS &amp; PRACTICES</h4>
+        <div class="skill" data-reveal>
+          <h3 class="skill-title mono">TOOLS &amp; PRACTICES</h3>
           <p>Git, Postman, JIRA, Agile Scrum, system design, LLM evaluation.</p>
         </div>
+        <div class="skill skill-alt" data-reveal>
+          <h3 class="skill-title mono">ALSO, FROM THE SIDE PROJECTS</h3>
+          <p>Swift for macOS, iOS and watchOS. Electron, WebRTC, Chrome MV3, Cloudflare Workers, Supabase, Twilio, Three.js.</p>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ══════════ APPROACH ══════════ -->
+  <section class="section" id="approach" data-sector="07 — APPROACH" data-line="HOW THE WORK GETS DONE.">
+    <div class="sheet">
+      <header class="section-head" data-reveal>
+        <span class="section-index mono">06</span>
+        <h2 class="section-title">How I work</h2>
+        <span class="section-note mono">FOUR HABITS, EACH WITH A RECEIPT ABOVE</span>
+      </header>
+      <ol class="principles">
+        <li class="principle" data-reveal>
+          <span class="principle-num serif">1</span>
+          <h3>Ground it before you generate it.</h3>
+          <p>A model's answer is only as good as the retrieval and the checks around it. The dispute assistant leans on filters, structured outputs and validation, not on a clever prompt.</p>
+        </li>
+        <li class="principle" data-reveal>
+          <span class="principle-num serif">2</span>
+          <h3>Verify, then say done.</h3>
+          <p>DialDo will not report success until it has evidence the task happened. I hold code to the same rule: tests, then a real run, then the claim.</p>
+        </li>
+        <li class="principle" data-reveal>
+          <span class="principle-num serif">3</span>
+          <h3>Ask for the least you need.</h3>
+          <p>A send-only mail scope. A token that never leaves the page. One window instead of the whole screen. The safest data is the data the system never holds.</p>
+        </li>
+        <li class="principle" data-reveal>
+          <span class="principle-num serif">4</span>
+          <h3>Say what state it is in.</h3>
+          <p>Every project here names what is untested or unfinished. This page counts only what you can check and links only what resolves.</p>
+        </li>
+      </ol>
     </div>
   </section>
 
   <!-- ══════════ EDUCATION ══════════ -->
-  <section class="edu section" id="edu" data-sector="07 — TRAINING">
+  <section class="section" id="education" data-sector="08 — TRAINING" data-line="OVER THE OLD TRAINING GROUNDS.">
     <div class="sheet">
-      <div class="section-head">
-        <span class="section-index mono">05</span>
-        <h2 class="section-title" data-split>Education</h2>
+      <header class="section-head" data-reveal>
+        <span class="section-index mono">07</span>
+        <h2 class="section-title">Education</h2>
         <span class="section-note mono">THREE DEGREES OF PREPARATION</span>
-      </div>
+      </header>
       <div class="edu-rows">
-        <div class="edu-row">
+        <div class="edu-row" data-reveal>
           <span class="edu-year serif">2025</span>
           <span class="edu-school">Illinois Institute of Technology</span>
-          <span class="edu-degree">MS, Computer Science · Chicago, IL · Aug 2023 — May 2025</span>
+          <span class="edu-degree">MS, Computer Science · Chicago, IL · Aug 2023 to May 2025</span>
         </div>
-        <div class="edu-row">
+        <div class="edu-row" data-reveal>
           <span class="edu-year serif">2022</span>
           <span class="edu-school">K J Somaiya Institute of Management</span>
-          <span class="edu-degree">Master of Computer Applications · Mumbai · May 2020 — Jul 2022</span>
+          <span class="edu-degree">Master of Computer Applications · Mumbai · May 2020 to Jul 2022</span>
         </div>
-        <div class="edu-row">
+        <div class="edu-row" data-reveal>
           <span class="edu-year serif">2020</span>
           <span class="edu-school">K J Somaiya College of Science and Commerce</span>
-          <span class="edu-degree">BS, Information Technology · Mumbai · Jun 2017 — May 2020</span>
+          <span class="edu-degree">BS, Information Technology · Mumbai · Jun 2017 to May 2020</span>
         </div>
       </div>
-      <div class="edu-achievements">
-        <div class="achievement">
+      <div class="achievements">
+        <div class="achievement" data-reveal>
           <span class="achievement-num serif">1st</span>
           <p><strong>Hackathon winner.</strong> First place among 200+ teams, Duck Creek Hatchathon 2022.</p>
         </div>
-        <div class="achievement">
+        <div class="achievement" data-reveal>
           <span class="achievement-num serif">50+</span>
           <p><strong>Outstanding academic coach.</strong> Illinois Tech, 50+ students mentored.</p>
         </div>
-        <div class="achievement">
+        <div class="achievement" data-reveal>
           <span class="achievement-num serif">AZ</span>
           <p><strong>Certified.</strong> Microsoft Azure Fundamentals and SQL for Data Science.</p>
         </div>
@@ -556,58 +693,51 @@
   </section>
 
   <!-- ══════════ CONTACT ══════════ -->
-  <section class="contact section" id="contact" data-sector="08 — LANDING">
+  <section class="contact" id="contact" data-sector="09 — LANDING" data-line="FINAL APPROACH AT DUSK. SEND THE EMAIL, BRING HER HOME.">
     <div class="contact-inner">
-      <div class="contact-kicker mono reveal-line">THE PART WHERE YOU EMAIL ME</div>
-      <h2 class="contact-title" data-split-words>Let’s build <em>something great.</em></h2>
-      <a class="contact-email mono" href="mailto:mananshah03691@gmail.com" data-magnetic>
-        mananshah03691@gmail.com
-      </a>
-      <div class="contact-links">
-        <a class="btn btn-ghost" href="https://www.linkedin.com/in/mananshah2254" target="_blank" rel="noopener" data-magnetic><span>LINKEDIN ↗</span></a>
-        <a class="btn btn-ghost" href="https://github.com/mananshah2254" target="_blank" rel="noopener" data-magnetic><span>GITHUB ↗</span></a>
-        <a class="btn btn-ghost" href="assets/Manan_Shah_Resume.pdf" target="_blank" rel="noopener" data-magnetic><span>RÉSUMÉ ↗</span></a>
-        <a class="btn btn-primary" href="mailto:mananshah03691@gmail.com" data-magnetic><span>EMAIL ME</span></a>
+      <p class="contact-kicker mono" data-reveal>THE PART WHERE YOU EMAIL ME</p>
+      <h2 class="contact-title" data-reveal>Let’s build <em>something that holds.</em></h2>
+      <p class="contact-sub" data-reveal>
+        I am interested in AI engineering roles where the model is one part of a real system.
+        If you are building one, I would like to hear about it.
+      </p>
+      <div class="contact-email-row" data-reveal>
+        <a class="contact-email mono" href="mailto:mananshah03691@gmail.com">mananshah03691@gmail.com</a>
+        <button class="copy mono" id="copyEmail" type="button" data-copy="mananshah03691@gmail.com">COPY</button>
       </div>
-      <div class="contact-meta mono">
-        SAN FRANCISCO, CA · OPEN TO RELOCATE · AI ENGINEER @ PAYPAL · RESPONDS FAST
+      <div class="contact-links" data-reveal>
+        <a class="btn btn-primary" href="mailto:mananshah03691@gmail.com">EMAIL ME</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/mananshah2254" target="_blank" rel="noopener">LINKEDIN <span aria-hidden="true">↗</span></a>
+        <a class="btn btn-ghost" href="https://github.com/mananshah2254" target="_blank" rel="noopener">GITHUB <span aria-hidden="true">↗</span></a>
+        <a class="btn btn-ghost" href="assets/Manan_Shah_Resume.pdf" target="_blank" rel="noopener">RÉSUMÉ <span aria-hidden="true">↗</span></a>
       </div>
+      <p class="contact-meta mono" data-reveal>SAN FRANCISCO, CA · OPEN TO RELOCATE · <span id="sfClock">PACIFIC TIME</span></p>
     </div>
   </section>
 
-  <footer class="footer">
-    <span class="mono">© 2026 MANAN SHAH</span>
-    <span class="mono footer-mid">FLOWN, NOT SCROLLED. EVERY ISLAND BELOW WAS PLACED BY HAND.</span>
-    <span class="mono" id="hudClock">00:00:00</span>
-  </footer>
-
 </main>
 
-<!-- Fallback background if WebGL fails -->
-<div class="webgl-fallback" id="webglFallback" hidden></div>
+<footer class="footer">
+  <span class="mono">© 2026 MANAN SHAH</span>
+  <span class="mono footer-mid">HAND BUILT. NO FRAMEWORK, NO BUILD STEP, NO ANALYTICS.</span>
+  <a class="mono footer-top" href="#hero">BACK TO TOP ↑</a>
+</footer>
+
+<!-- flight instruments: one tidy strip instead of floating HUD corners -->
+<div class="strip mono" id="strip" aria-hidden="true">
+  <span class="strip-sector" id="stripSector">01 — TAKEOFF</span>
+  <span class="strip-line" id="stripLine">WHEELS UP OVER THE BAY. GOLDEN HOUR, CLEAR SKIES.</span>
+  <span class="strip-gauges"><span id="stripAlt">ALT ---- FT</span><span id="stripSpd">SPD --- KT</span></span>
+</div>
 
 <script type="importmap">
 {
   "imports": {
-    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
   }
 }
 </script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script type="module" src="main.js"></script>
-<script>
-  // failsafe: never let the preloader trap visitors if the module can't boot
-  setTimeout(function () {
-    if (!window.__4D_BOOTED) {
-      var p = document.getElementById("preloader");
-      var o = document.getElementById("enterOverlay");
-      if (p) p.remove();
-      if (o) o.remove();
-    }
-  }, 9000);
-</script>
+<script src="site.js" defer></script>
 </body>
 </html>
